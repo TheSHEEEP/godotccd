@@ -32,3 +32,9 @@
 *.app
 
 demo/\.import/
+
+\.kdev4/
+
+\.sconsign\.dblite
+
+demo/\.tmp

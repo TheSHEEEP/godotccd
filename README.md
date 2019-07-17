@@ -7,6 +7,9 @@ Godot's collision checking is fine for most "everyday" needs, but if you need so
 Hence I decided to implement [libccd](https://github.com/danfis/libccd), which is fast, very lightweight and has a license fitting Godot's own.
 
 ### How to build?
+Note that I build for linux 64bit release in this guide, but you can change those options, of course (check the [build system documentation](https://docs.godotengine.org/en/3.1/development/compiling/introduction_to_the_buildsystem.html)).  
+I don't see a reason why this module wouldn't work on any other desktop platform.
+
 1. Check out the repo
 2. Initialize the submodules:  
 
@@ -14,7 +17,7 @@ Hence I decided to implement [libccd](https://github.com/danfis/libccd), which i
 git submodules update --init --recursive
 ```
 
-3. Build Godot's cpp bindings (those are the settings I use, for other choices, check out the [build system documentation](https://docs.godotengine.org/en/3.1/development/compiling/introduction_to_the_buildsystem.html)):  
+3. Build Godot's cpp bindings:  
 ```
 cd godot-cpp
 scons platform=linux generate_bindings=yes bits=64 target=release -j 4
@@ -22,5 +25,10 @@ cd ..
 ```
 4. Build godotccd:
 ```
-hello
+scons platforms=linux target=release -j 4
 ```
+The compiled gdnative module should now be under demo/godotccd/bin.
+
+### How to integrate into your project?
+Please follow [this guide](https://docs.godotengine.org/en/3.1/tutorials/plugins/gdnative/gdnative-cpp-example.html#using-the-gdnative-module) on how to use C++ GDNative modules.
+You can also try and use the demo project's .gdnlib and .gdns files, though you might have to adjust them for your paths.
