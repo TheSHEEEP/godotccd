@@ -15,7 +15,7 @@ I don't see a reason why this module wouldn't work on any other desktop platform
 2. Initialize the submodules:  
 
 ```
-git submodules update --init --recursive
+git submodule update --init --recursive
 ```
 
 3. Build Godot's cpp bindings:  
