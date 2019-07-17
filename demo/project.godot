@@ -19,10 +19,6 @@ config/name="godotccd Demo"
 run/main_scene="res://Main.tscn"
 config/icon="res://icon.png"
 
-[editor_plugins]
-
-enabled=PoolStringArray( "test" )
-
 [rendering]
 
 environment/default_environment="res://default_env.tres"

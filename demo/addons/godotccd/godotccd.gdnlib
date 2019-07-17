@@ -3,11 +3,11 @@
 singleton=false
 load_once=true
 symbol_prefix="godot_"
-reloadable=false
+reloadable=true
 
 [entry]
 
-X11.64="res://godotccd/bin/x11/libgodotccd.so"
+X11.64="res://addons/godotccd/bin/x11/libgodotccd.so"
 
 [dependencies]
 

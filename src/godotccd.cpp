@@ -1,40 +1,18 @@
 #include "godotccd.h"
 
-using namespace godot;
-
-void GDExample::_register_methods() {
-    register_method("_process", &GDExample::_process);
-    register_method("saySomething", &GDExample::saySomething);
-}
-
-GDExample::GDExample() 
+extern "C" void GDN_EXPORT godot_gdnative_init(godot_gdnative_init_options* o) 
 {
+    godot::Godot::gdnative_init(o);
 }
 
-GDExample::~GDExample() 
+extern "C" void GDN_EXPORT godot_gdnative_terminate(godot_gdnative_terminate_options* o) 
 {
-    // add your cleanup here
+    godot::Godot::gdnative_terminate(o);
 }
 
-void GDExample::_init() 
+extern "C" void GDN_EXPORT godot_nativescript_init(void* handle) 
 {
-    // initialize any variables here
-    time_passed = 0.0;
+    godot::Godot::nativescript_init(handle); 
+
+    godot::register_class<godot::CCDSphere>();
 }
-
-void GDExample::_process(float delta) 
-{
-    time_passed += delta;
-
-    if (time_passed >= 2.0f) 
-    {
-        Godot::print("2 seconds passed.");
-        time_passed = 0.0f;
-    }
-}
-
-void GDExample::saySomething()
-{
-    Godot::print("Hello world!");
-}
-

@@ -11,7 +11,7 @@ opts.Add(EnumVariable('target', "Compilation target", 'debug', ['d', 'debug', 'r
 opts.Add(EnumVariable('platform', "Compilation platform", '', ['', 'windows', 'x11', 'linux', 'osx']))
 opts.Add(EnumVariable('p', "Compilation target, alias for 'platform'", '', ['', 'windows', 'x11', 'linux', 'osx']))
 opts.Add(BoolVariable('use_llvm', "Use the LLVM / Clang compiler", 'no'))
-opts.Add(PathVariable('target_path', 'The path where the lib is installed.', 'demo/godotccd/bin/', PathVariable.PathIsDirCreate))
+opts.Add(PathVariable('target_path', 'The path where the lib is installed.', 'demo/addons/godotccd/bin/', PathVariable.PathIsDirCreate))
 opts.Add(PathVariable('target_name', 'The library name.', 'libgodotccd', PathVariable.PathAccept))
 
 # Local dependency paths, adapt them to your setup
@@ -96,10 +96,12 @@ env.Append(LIBPATH=[cpp_bindings_path + 'bin/'])
 env.Append(LIBS=[cpp_library])
 
 # tweak this if you want to use different folders, or more folders, to store your source code in.
-env.Append(CPPPATH=['src/'])
+env.Append(CPPPATH=['src/', 'libccd/src/', 'libccd/src/ccd/', 'libccd/src/testsuites/'])
 sources = Glob('src/*.cpp')
+sources += Glob('libccd/src/*.c')
+sources += Glob('libccd/src/testsuites/support.c')
 
-library = env.SharedLibrary(target=env['target_path'] + env['target_name'] , source=sources)
+library = env.SharedLibrary(target=env['target_path'] + env['target_name'], source=sources)
 
 Default(library)
 
