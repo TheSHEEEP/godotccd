@@ -19,6 +19,15 @@ config/name="godotccd Demo"
 run/main_scene="res://Main.tscn"
 config/icon="res://icon.png"
 
+[display]
+
+window/size/width=1440
+window/size/height=900
+
+[physics]
+
+common/physics_fps=180
+
 [rendering]
 
 environment/default_environment="res://default_env.tres"
