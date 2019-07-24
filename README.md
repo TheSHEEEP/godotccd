@@ -1,6 +1,7 @@
 # godotccd
 A GDNative plugin for the [Godot Engine](https://godotengine.org/) (3.1+) that implements [libccd](https://github.com/danfis/libccd) - a lightning fast collision checking library for convex shapes.  
-Features boxes, cylinders and spheres.
+Features boxes, cylinders and spheres.  
+Both GJK and MPR algorithms are included, so you can pick the one you want.
 
 ### What this is and isn't
 **It is:** A plugin that allows extremely fast collision checking between arbitrary boxes, cylinders and spheres independent of Godot's internal simulations, scenes & rendering. And only that.  

@@ -488,5 +488,5 @@ Each test is done by adding 500 shapes.
 As each shape is added, it is tested for collision with each already existing shape.
 Therefore, the first added shape requires 0 collision checks, and the last one 499.
 
-Also note that the Area results are actually still \"too fast\" due to the physics_fps being set to an unreasonably high number (so that this test would complete faster).
+Also note that the Area results are actually still \"too fast\" due to the physics_fps being set to an unreasonably high number (180fps, so that this test would complete faster).
 "

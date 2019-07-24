@@ -23,8 +23,8 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#ifndef CCDSPHERE_H
-#define CCDSPHERE_H
+#ifndef CCDBOX_H
+#define CCDBOX_H
 
 #include <Godot.hpp>
 #include <Reference.hpp>
@@ -33,46 +33,31 @@
 #include "ccd/ccd.h"
 #include "testsuites/support.h"
 
-namespace godot 
+namespace godot
 {
-    
     /**
-    * @brief libccd sphere for Godot.
+    * @todo write docs
     */
-    class CCDSphere : public Reference
+    class CCDBox : public Reference
     {
-        GODOT_CLASS(CCDSphere, Reference)
+            GODOT_CLASS(CCDBox, Reference)
     
     public:
         static void _register_methods();
+        
+        /**
+        * Default constructor
+        */
+        CCDBox();
 
-        CCDSphere();
-        virtual ~CCDSphere();
+        /**
+        * Destructor
+        */
+        ~CCDBox();
 
         void _init(); // our initializer called by Godot
-        
-        /**
-         * @brief Initialize the sphere.
-         */
-        void initialize(Vector3 position, float radius);
-        
-        /**
-         * @brief Returns true if this object collides with the passed one.
-         */
-        bool collidesWithGJK(Variant other);
-        
-        /**
-         * @brief   Returns true if this object collides with the passed one.
-         *          Will also fill the outParam with details about the collision.
-         */
-        bool collidesWithGJKPenetration(Variant other, Dictionary* outParam);
-        
-    private:
-        static ccd_t ccd;
-        static bool ccdInitialized;
-        
-        ccd_sphere_t ccdSphere;
+
     };
 }
 
-#endif // CCDSPHERE_H
+#endif // CCDBOX_H

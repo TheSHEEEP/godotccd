@@ -10,6 +10,10 @@ var objectContainer :Array = []
 func _ready():
 	var sphere = CCDSphere.new()
 	sphere.initialize(Vector3(1.1, 2.2, 3.3), 4.4)
+	
+	var sphere2 = CCDSphere.new()
+	sphere2.initialize(Vector3(1.1, 2.2, 3.3), 4.4)
+	print(sphere.collidesWithGJK(sphere2));
 
 # Called when the user presses a key
 func _input(event :InputEvent) -> void:
@@ -30,6 +34,14 @@ func doNextTest(testIndex :int) -> void:
 		$lblAdvance.bbcode_text = "[center]Doing area test... patience, please[/center]"
 		yield(doAreaTest(500), "completed")
 		$lblAdvance.bbcode_text = "[center]Area test done. Press space to run the next test...[/center]"
+	if testIndex == 1:
+		$lblAdvance.bbcode_text = "[center]Doing godotccd GJK test...[/center]"
+		yield(doCCDGJKTest(500), "completed")
+		$lblAdvance.bbcode_text = "[center]godotccd GJK test done. Press space to run the next test...[/center]"
+	if testIndex == 2:
+		$lblAdvance.bbcode_text = "[center]Doing godotccd MPR test...[/center]"
+		yield(doCCDGJKTest(500), "completed")
+		$lblAdvance.bbcode_text = "[center]godotccd MPR test done. Hooray! (>^.^)>[/center]"
 
 # Do the area test
 func doAreaTest(numObjects :int) -> void:
@@ -98,6 +110,20 @@ func doAreaTest(numObjects :int) -> void:
 	# Done
 	isDoingTest = false
 
+# Do the ccd gjk test
+func doCCDGJKTest(numObjects :int) -> void:
+	isDoingTest = true
+	
+	# Done
+	isDoingTest = false
+	
+# Do the ccd mpr test
+func doCCDMPRTest(numObjects :int) -> void:
+	isDoingTest = true
+	
+	# Done
+	isDoingTest = false
+	
 # Internal test for Godot's area type
 func _internalAreaTest(originalArea :Area, originalArea2 :Area, numObjects :int) -> int:
 	var numCollisions :int = 0

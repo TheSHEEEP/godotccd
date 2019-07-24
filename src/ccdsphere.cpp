@@ -24,16 +24,31 @@
  */
 
 #include "ccdsphere.h"
+#include "ccdbox.h"
 
 using namespace godot;
+ccd_t CCDSphere::ccd;
+bool CCDSphere::ccdInitialized = false;
 
 void CCDSphere::_register_methods() 
 {
     register_method("initialize", &CCDSphere::initialize);
+    register_method("collidesWithGJK", &CCDSphere::collidesWithGJK);
 }
 
 CCDSphere::CCDSphere() 
 {
+    // Setup CCD
+    if (!ccdInitialized) 
+    {
+        CCD_INIT(&ccd);
+        ccd.support1       = ccdSupport;  // support function for first object
+        ccd.support2       = ccdSupport;  // support function for second object
+        ccd.max_iterations = 100;         // maximal number of iterations
+        ccdInitialized = true;
+    }
+    
+    // Init sphere
     ccdSphere.type = CCD_OBJ_SPHERE;
     ccdSphere.quat = { .q = { 0., 0., 0., 1. } };
 }
@@ -42,20 +57,40 @@ CCDSphere::~CCDSphere()
 {
 }
 
-void CCDSphere::_init() 
+void 
+CCDSphere::_init() 
 {
 }
 
-void CCDSphere::initialize(Vector3 position, float radius)
+void 
+CCDSphere::initialize(Vector3 position, float radius)
 {
-    Godot::print("Init sphere with {0} and {1}", position, radius);
-    
     ccdSphere.radius = radius;
     ccdSphere.pos.v[0] = position.x;
     ccdSphere.pos.v[1] = position.y;
     ccdSphere.pos.v[2] = position.z;
+}
+
+bool 
+CCDSphere::collidesWithGJK(Variant other)
+{
+    // Check the actual class of the other object
+    CCDSphere* sphere = Object::cast_to<CCDSphere>(other.operator Object*());
+    CCDBox* box = Object::cast_to<CCDBox>(other.operator Object*());
     
-    Godot::print("Check {0}", ccdSphere.pos.v[2]);
+    bool intersect = false;
+    if (sphere != nullptr)
+    {
+        intersect = ccdGJKIntersect(&ccdSphere, &(sphere->ccdSphere), &ccd);
+    }
+
+    return intersect;
+}
+
+bool 
+CCDSphere::collidesWithGJKPenetration(Variant other, Dictionary* outParam)
+{
+    return true;
 }
 
 
