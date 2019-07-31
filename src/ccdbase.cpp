@@ -23,11 +23,43 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#ifndef GODOTCCD_H
-#define GODOTCCD_H
+#include "ccdbase.h"
 
-#include "ccdsphere.h"
-#include "ccdbox.h"
-#include "ccdcylinder.h"
+using namespace godot;
 
-#endif
+ccd_t CCDBase::ccd;
+bool CCDBase::ccdInitialized = false;
+
+void 
+CCDBase::_register_methods() 
+{
+}
+
+CCDBase::CCDBase()
+{
+    // Setup CCD
+    if (!ccdInitialized) 
+    {
+        CCD_INIT(&ccd);
+        ccd.support1        = ccdSupport;   // support function for first object
+        ccd.support2        = ccdSupport;   // support function for second object
+        ccd.center1         = ccdObjCenter; // center function for first
+        ccd.center2         = ccdObjCenter; // center function for second
+        ccd.max_iterations  = 100;          // maximal number of iterations
+        ccd.epa_tolerance   = 0.1f;
+        ccd.mpr_tolerance   = 0.1f;
+        ccd.dist_tolerance  = 0.1f;
+        ccdInitialized      = true;
+    }
+}
+
+CCDBase::~CCDBase()
+{
+
+}
+
+void 
+CCDBase::_init() 
+{
+}
+

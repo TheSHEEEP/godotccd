@@ -23,33 +23,32 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#ifndef CCDSPHERE_H
-#define CCDSPHERE_H
+#ifndef CCDCYLINDER_H
+#define CCDCYLINDER_H
 
 #include "ccdbase.h"
 
-namespace godot 
+namespace godot
 {
-    
     /**
     * @brief libccd sphere for Godot.
     */
-    class CCDSphere : public CCDBase
+    class CCDCylinder : public CCDBase
     {
-        GODOT_CLASS(CCDSphere, CCDBase)
+        GODOT_CLASS(CCDCylinder, CCDBase)
     
     public:
         static void _register_methods();
 
-        CCDSphere();
-        virtual ~CCDSphere();
+        CCDCylinder();
+        virtual ~CCDCylinder();
 
         void _init(); // our initializer called by Godot
         
         /**
-         * @brief Initialize the sphere.
+         * @brief Initialize the cylinder.
          */
-        void initialize(Vector3 position, Quat rotation, float radius);
+        void initialize(Vector3 position, Quat rotation, float radius, float height);
         
         /**
          * @brief Returns true if this object collides with the passed one.
@@ -75,12 +74,11 @@ namespace godot
         /**
          * @brief For easier identification from GDScript.
          */
-        String getClassName() { return "CCDSphere"; }
+        String getClassName() { return "CCDCylinder"; }
         
     public:
-        ccd_sphere_t ccdSphere;
-        float testRadius;
+        ccd_cyl_t ccdCylinder;
     };
 }
 
-#endif // CCDSPHERE_H
+#endif // CCDCYLINDER_H

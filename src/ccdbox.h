@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019 <copyright holder> <email>
+ * Copyright (c) 2019 Jan Drabner jd at jdrabner.eu
  * 
  * Permission is hereby granted, free of charge, to any person
  * obtaining a copy of this software and associated documentation
@@ -26,21 +26,16 @@
 #ifndef CCDBOX_H
 #define CCDBOX_H
 
-#include <Godot.hpp>
-#include <Reference.hpp>
-#include <Dictionary.hpp>
-#include <Variant.hpp>
-#include "ccd/ccd.h"
-#include "testsuites/support.h"
+#include "ccdbase.h"
 
 namespace godot
 {
     /**
-    * @todo write docs
+    * @brief libccd sphere for Godot.
     */
-    class CCDBox : public Reference
+    class CCDBox : public CCDBase
     {
-            GODOT_CLASS(CCDBox, Reference)
+        GODOT_CLASS(CCDBox, CCDBase)
     
     public:
         static void _register_methods();
@@ -53,10 +48,43 @@ namespace godot
         /**
         * Destructor
         */
-        ~CCDBox();
+        virtual ~CCDBox();
 
         void _init(); // our initializer called by Godot
+        
+        /**
+         * @brief Initialize the cylinder.
+         */
+        void initialize(Vector3 position, Quat rotation, Vector3 dimensions);
+        
+        /**
+         * @brief Returns true if this object collides with the passed one.
+         */
+        bool collidesWithGJK(Variant other);
+        
+        /**
+         * @brief   Returns true if this object collides with the passed one.
+         *          Will also fill the outParam with details about the collision.
+         */
+        bool collidesWithGJKPenetration(Variant other, Dictionary* outParam);
+        
+        /**
+         * @brief Returns true if this object collides with the passed one.
+         */
+        bool collidesWithMPR(Variant other);
+        
+        /**
+         * @brief Returns the position.
+         */
+        Vector3 getPosition();
+        
+        /**
+         * @brief For easier identification from GDScript.
+         */
+        String getClassName() { return "CCDBox"; }
 
+    public:
+        ccd_box_t ccdBox;
     };
 }
 

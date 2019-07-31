@@ -1,5 +1,8 @@
 extends Spatial
-const CCDSphere = preload("res://addons/godotccd/ccdSphere.gdns")
+const CCDSphere 	:NativeScript = preload("res://addons/godotccd/ccdSphere.gdns")
+const CCDBox 		:NativeScript = preload("res://addons/godotccd/ccdBox.gdns")
+const CCDCylinder 	:NativeScript = preload("res://addons/godotccd/ccdCylinder.gdns")
+const objectRange 	:float = 65.0
 
 var isDoingTest 	:bool = false
 var testIndex 		:int = -1
@@ -8,12 +11,7 @@ var objectContainer :Array = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	var sphere = CCDSphere.new()
-	sphere.initialize(Vector3(1.1, 2.2, 3.3), 4.4)
-	
-	var sphere2 = CCDSphere.new()
-	sphere2.initialize(Vector3(1.1, 2.2, 3.3), 4.4)
-	print(sphere.collidesWithGJK(sphere2));
+	pass
 
 # Called when the user presses a key
 func _input(event :InputEvent) -> void:
@@ -40,7 +38,7 @@ func doNextTest(testIndex :int) -> void:
 		$lblAdvance.bbcode_text = "[center]godotccd GJK test done. Press space to run the next test...[/center]"
 	if testIndex == 2:
 		$lblAdvance.bbcode_text = "[center]Doing godotccd MPR test...[/center]"
-		yield(doCCDGJKTest(500), "completed")
+		yield(doCCDMPRTest(500), "completed")
 		$lblAdvance.bbcode_text = "[center]godotccd MPR test done. Hooray! (>^.^)>[/center]"
 
 # Do the area test
@@ -48,64 +46,113 @@ func doAreaTest(numObjects :int) -> void:
 	isDoingTest = true
 	
 	# Box vs Box test
-	objectContainer.clear()
+	_clearObjectsArea()
 	var timerStart :int = OS.get_ticks_msec()
 	rng.seed = 1
-	var numCollisions :int = yield(_internalAreaTest($BoxArea, null, numObjects), "completed")
+	var outParam :Dictionary = { "result" : 0 }
+	yield(_internalAreaTest($BoxArea, null, numObjects, false, outParam), "completed")
+	var numCollisions :int = outParam["result"]
 	var timerEnd :int = OS.get_ticks_msec()
 	var timeTotal :int = timerEnd - timerStart
-	var bbCode :String = "[center]{0}ms ({1})[/center]".format([timeTotal, numCollisions])
+	_clearObjectsArea()
+	rng.seed = 1
+	yield(_internalAreaTest($BoxArea, null, numObjects, true, outParam), "completed")
+	var numCollisions2 :int = outParam["result"]
+	var timerEnd2 :int = OS.get_ticks_msec()
+	var timeTotal2 :int = timerEnd2 - timerEnd
+	var bbCode :String = "[center]{0}ms ({1})\n{2}ms ({3})[/center]".format([timeTotal, numCollisions, timeTotal2, numCollisions2])
 	$VBoxContainer/HBoxContainer2/lblAreaBB.bbcode_text = bbCode
+	yield(get_tree(), "idle_frame")
 	
 	# Sphere vs Sphere test
-	objectContainer.clear()
+	_clearObjectsArea()
 	timerStart = OS.get_ticks_msec()
 	rng.seed = 2
-	numCollisions = yield(_internalAreaTest($SphereArea, null, numObjects), "completed")
+	yield(_internalAreaTest($SphereArea, null, numObjects, false, outParam), "completed")
+	numCollisions = outParam["result"]
 	timerEnd = OS.get_ticks_msec()
 	timeTotal = timerEnd - timerStart
-	bbCode = "[center]{0}ms ({1})[/center]".format([timeTotal, numCollisions])
+	_clearObjectsArea()
+	rng.seed = 2
+	yield(_internalAreaTest($SphereArea, null, numObjects, true, outParam), "completed")
+	numCollisions2 = outParam["result"]
+	timerEnd2 = OS.get_ticks_msec()
+	timeTotal2 = timerEnd2 - timerEnd
+	bbCode = "[center]{0}ms ({1})\n{2}ms ({3})[/center]".format([timeTotal, numCollisions, timeTotal2, numCollisions2])
 	$VBoxContainer/HBoxContainer2/lblAreaSS.bbcode_text = bbCode
+	yield(get_tree(), "idle_frame")
 	
 	# Cylinder vs Cylinder test
-	objectContainer.clear()
+	_clearObjectsArea()
 	timerStart = OS.get_ticks_msec()
 	rng.seed = 3
-	numCollisions = yield(_internalAreaTest($CylinderArea, null, numObjects), "completed")
+	yield(_internalAreaTest($CylinderArea, null, numObjects, false, outParam), "completed")
+	numCollisions = outParam["result"]
 	timerEnd = OS.get_ticks_msec()
 	timeTotal = timerEnd - timerStart
-	bbCode = "[center]{0}ms ({1})[/center]".format([timeTotal, numCollisions])
+	_clearObjectsArea()
+	rng.seed = 3
+	yield(_internalAreaTest($CylinderArea, null, numObjects, true, outParam), "completed")
+	numCollisions2 = outParam["result"]
+	timerEnd2 = OS.get_ticks_msec()
+	timeTotal2 = timerEnd2 - timerEnd
+	bbCode = "[center]{0}ms ({1})\n{2}ms ({3})[/center]".format([timeTotal, numCollisions, timeTotal2, numCollisions2])
 	$VBoxContainer/HBoxContainer2/lblAreaCC.bbcode_text = bbCode
+	yield(get_tree(), "idle_frame")
 	
 	# Box vs Sphere test
-	objectContainer.clear()
+	_clearObjectsArea()
 	timerStart = OS.get_ticks_msec()
 	rng.seed = 4
-	numCollisions = yield(_internalAreaTest($BoxArea, $SphereArea, numObjects), "completed")
+	yield(_internalAreaTest($BoxArea, $SphereArea, numObjects, false, outParam), "completed")
+	numCollisions = outParam["result"]
 	timerEnd = OS.get_ticks_msec()
 	timeTotal = timerEnd - timerStart
-	bbCode = "[center]{0}ms ({1})[/center]".format([timeTotal, numCollisions])
+	_clearObjectsArea()
+	rng.seed = 4
+	yield(_internalAreaTest($BoxArea, $SphereArea, numObjects, true, outParam), "completed")
+	numCollisions2 = outParam["result"]
+	timerEnd2 = OS.get_ticks_msec()
+	timeTotal2 = timerEnd2 - timerEnd
+	bbCode = "[center]{0}ms ({1})\n{2}ms ({3})[/center]".format([timeTotal, numCollisions, timeTotal2, numCollisions2])
 	$VBoxContainer/HBoxContainer2/lblAreaBS.bbcode_text = bbCode
+	yield(get_tree(), "idle_frame")
 	
 	# Box vs Cylinder test
-	objectContainer.clear()
+	_clearObjectsArea()
 	timerStart = OS.get_ticks_msec()
 	rng.seed = 5
-	numCollisions = yield(_internalAreaTest($BoxArea, $CylinderArea, numObjects), "completed")
+	yield(_internalAreaTest($BoxArea, $CylinderArea, numObjects, false, outParam), "completed")
+	numCollisions = outParam["result"]
 	timerEnd = OS.get_ticks_msec()
 	timeTotal = timerEnd - timerStart
-	bbCode = "[center]{0}ms ({1})[/center]".format([timeTotal, numCollisions])
+	_clearObjectsArea()
+	rng.seed = 5
+	yield(_internalAreaTest($BoxArea, $CylinderArea, numObjects, true, outParam), "completed")
+	numCollisions2 = outParam["result"]
+	timerEnd2 = OS.get_ticks_msec()
+	timeTotal2 = timerEnd2 - timerEnd
+	bbCode = "[center]{0}ms ({1})\n{2}ms ({3})[/center]".format([timeTotal, numCollisions, timeTotal2, numCollisions2])
 	$VBoxContainer/HBoxContainer2/lblAreaBC.bbcode_text = bbCode
+	yield(get_tree(), "idle_frame")
 	
 	# Sphere vs Cylinder test
-	objectContainer.clear()
+	_clearObjectsArea()
 	timerStart = OS.get_ticks_msec()
 	rng.seed = 6
-	numCollisions = yield(_internalAreaTest($SphereArea, $CylinderArea, numObjects), "completed")
+	yield(_internalAreaTest($SphereArea, $CylinderArea, numObjects, false, outParam), "completed")
+	numCollisions = outParam["result"]
 	timerEnd = OS.get_ticks_msec()
 	timeTotal = timerEnd - timerStart
-	bbCode = "[center]{0}ms ({1})[/center]".format([timeTotal, numCollisions])
+	_clearObjectsArea()
+	rng.seed = 6
+	yield(_internalAreaTest($SphereArea, $CylinderArea, numObjects, true, outParam), "completed")
+	numCollisions2 = outParam["result"]
+	timerEnd2 = OS.get_ticks_msec()
+	timeTotal2 = timerEnd2 - timerEnd
+	bbCode = "[center]{0}ms ({1})\n{2}ms ({3})[/center]".format([timeTotal, numCollisions, timeTotal2, numCollisions2])
 	$VBoxContainer/HBoxContainer2/lblAreaSC.bbcode_text = bbCode
+	yield(get_tree(), "idle_frame")
 	
 	# Done
 	isDoingTest = false
@@ -114,23 +161,168 @@ func doAreaTest(numObjects :int) -> void:
 func doCCDGJKTest(numObjects :int) -> void:
 	isDoingTest = true
 	
+	# Box vs Box test
+	var timerStart :int = OS.get_ticks_msec()
+	objectContainer.clear()
+	rng.seed = 1
+	var outParam :Dictionary = { "result" : 0 }
+	_internalGJKTest(CCDBox, null, numObjects, outParam)
+	var numCollisions :int = outParam["result"]
+	var timerEnd :int = OS.get_ticks_msec()
+	var timeTotal :int = timerEnd - timerStart
+	var bbCode :String = "[center]{0}ms ({1})[/center]".format([timeTotal, numCollisions])
+	$VBoxContainer/HBoxContainer3/lblGJKBB.bbcode_text = bbCode
+	yield(get_tree(), "idle_frame")
+	
+	# Sphere vs Sphere test
+	timerStart = OS.get_ticks_msec()
+	objectContainer.clear()
+	rng.seed = 2
+	_internalGJKTest(CCDSphere, null, numObjects, outParam)
+	numCollisions = outParam["result"]
+	timerEnd = OS.get_ticks_msec()
+	timeTotal = timerEnd - timerStart
+	bbCode = "[center]{0}ms ({1})[/center]".format([timeTotal, numCollisions])
+	$VBoxContainer/HBoxContainer3/lblGJKSS.bbcode_text = bbCode
+	yield(get_tree(), "idle_frame")
+	
+	# Cylinder vs Cylinder test
+	timerStart = OS.get_ticks_msec()
+	objectContainer.clear()
+	rng.seed = 3
+	_internalGJKTest(CCDCylinder, null, numObjects, outParam)
+	numCollisions = outParam["result"]
+	timerEnd = OS.get_ticks_msec()
+	timeTotal = timerEnd - timerStart
+	bbCode = "[center]{0}ms ({1})[/center]".format([timeTotal, numCollisions])
+	$VBoxContainer/HBoxContainer3/lblGJKCC.bbcode_text = bbCode
+	yield(get_tree(), "idle_frame")
+	
+	# Box vs Sphere test
+	timerStart = OS.get_ticks_msec()
+	objectContainer.clear()
+	rng.seed = 4
+	_internalGJKTest(CCDBox, CCDSphere, numObjects, outParam)
+	numCollisions = outParam["result"]
+	timerEnd = OS.get_ticks_msec()
+	timeTotal = timerEnd - timerStart
+	bbCode = "[center]{0}ms ({1})[/center]".format([timeTotal, numCollisions])
+	$VBoxContainer/HBoxContainer3/lblGJKBS.bbcode_text = bbCode
+	yield(get_tree(), "idle_frame")
+	
+	# Box vs Cylinder test
+	timerStart = OS.get_ticks_msec()
+	objectContainer.clear()
+	rng.seed = 5
+	_internalGJKTest(CCDBox, CCDCylinder, numObjects, outParam)
+	numCollisions = outParam["result"]
+	timerEnd = OS.get_ticks_msec()
+	timeTotal = timerEnd - timerStart
+	bbCode = "[center]{0}ms ({1})[/center]".format([timeTotal, numCollisions])
+	$VBoxContainer/HBoxContainer3/lblGJKBC.bbcode_text = bbCode
+	yield(get_tree(), "idle_frame")
+	
+	# Sphere vs Cylinder test
+	timerStart = OS.get_ticks_msec()
+	objectContainer.clear()
+	rng.seed = 6
+	_internalGJKTest(CCDSphere, CCDCylinder, numObjects, outParam)
+	numCollisions = outParam["result"]
+	timerEnd = OS.get_ticks_msec()
+	timeTotal = timerEnd - timerStart
+	bbCode = "[center]{0}ms ({1})[/center]".format([timeTotal, numCollisions])
+	$VBoxContainer/HBoxContainer3/lblGJKSC.bbcode_text = bbCode
+	yield(get_tree(), "idle_frame")
+	
 	# Done
 	isDoingTest = false
-	
+
 # Do the ccd mpr test
 func doCCDMPRTest(numObjects :int) -> void:
 	isDoingTest = true
 	
+	# Box vs Box test
+	var timerStart :int = OS.get_ticks_msec()
+	objectContainer.clear()
+	rng.seed = 1
+	var outParam :Dictionary = { "result" : 0 }
+	_internalMPRTest(CCDBox, null, numObjects, outParam)
+	var numCollisions :int = outParam["result"]
+	var timerEnd :int = OS.get_ticks_msec()
+	var timeTotal :int = timerEnd - timerStart
+	var bbCode :String = "[center]{0}ms ({1})[/center]".format([timeTotal, numCollisions])
+	$VBoxContainer/HBoxContainer4/lblMPRBB.bbcode_text = bbCode
+	
+	# Sphere vs Sphere test
+	timerStart = OS.get_ticks_msec()
+	objectContainer.clear()
+	rng.seed = 2
+	_internalMPRTest(CCDSphere, null, numObjects, outParam)
+	numCollisions = outParam["result"]
+	timerEnd = OS.get_ticks_msec()
+	timeTotal = timerEnd - timerStart
+	bbCode = "[center]{0}ms ({1})[/center]".format([timeTotal, numCollisions])
+	$VBoxContainer/HBoxContainer4/lblMPRSS.bbcode_text = bbCode
+	yield(get_tree(), "idle_frame")
+	
+	# Cylinder vs Cylinder test
+	timerStart = OS.get_ticks_msec()
+	objectContainer.clear()
+	rng.seed = 3
+	_internalMPRTest(CCDCylinder, null, numObjects, outParam)
+	numCollisions = outParam["result"]
+	timerEnd = OS.get_ticks_msec()
+	timeTotal = timerEnd - timerStart
+	bbCode = "[center]{0}ms ({1})[/center]".format([timeTotal, numCollisions])
+	$VBoxContainer/HBoxContainer4/lblMPRCC.bbcode_text = bbCode
+	yield(get_tree(), "idle_frame")
+	
+	# Box vs Sphere test
+	timerStart = OS.get_ticks_msec()
+	objectContainer.clear()
+	rng.seed = 4
+	_internalMPRTest(CCDBox, CCDSphere, numObjects, outParam)
+	numCollisions = outParam["result"]
+	timerEnd = OS.get_ticks_msec()
+	timeTotal = timerEnd - timerStart
+	bbCode = "[center]{0}ms ({1})[/center]".format([timeTotal, numCollisions])
+	$VBoxContainer/HBoxContainer4/lblMPRBS.bbcode_text = bbCode
+	yield(get_tree(), "idle_frame")
+	
+	# Box vs Cylinder test
+	timerStart = OS.get_ticks_msec()
+	objectContainer.clear()
+	rng.seed = 5
+	_internalMPRTest(CCDBox, CCDCylinder, numObjects, outParam)
+	numCollisions = outParam["result"]
+	timerEnd = OS.get_ticks_msec()
+	timeTotal = timerEnd - timerStart
+	bbCode = "[center]{0}ms ({1})[/center]".format([timeTotal, numCollisions])
+	$VBoxContainer/HBoxContainer4/lblMPRBC.bbcode_text = bbCode
+	yield(get_tree(), "idle_frame")
+	
+	# Sphere vs Cylinder test
+	timerStart = OS.get_ticks_msec()
+	objectContainer.clear()
+	rng.seed = 6
+	_internalMPRTest(CCDSphere, CCDCylinder, numObjects, outParam)
+	numCollisions = outParam["result"]
+	timerEnd = OS.get_ticks_msec()
+	timeTotal = timerEnd - timerStart
+	bbCode = "[center]{0}ms ({1})[/center]".format([timeTotal, numCollisions])
+	$VBoxContainer/HBoxContainer4/lblMPRSC.bbcode_text = bbCode
+	yield(get_tree(), "idle_frame")
+	
 	# Done
 	isDoingTest = false
-	
+
 # Internal test for Godot's area type
-func _internalAreaTest(originalArea :Area, originalArea2 :Area, numObjects :int) -> int:
+func _internalAreaTest(originalArea :Area, originalArea2 :Area, numObjects :int, preAdd :bool, outParam :Dictionary):
 	var numCollisions :int = 0
 	
 	# Add the first area
 	var area :Area = originalArea.duplicate()
-	area.translation = Vector3(rng.randf_range(0.0, 50.0), 0.0, rng.randf_range(0.0, 50.0))
+	area.translation = Vector3(rng.randf_range(0.0, objectRange), 0.0, rng.randf_range(0.0, objectRange))
 	add_child(area)
 	objectContainer.push_back(area)
 	
@@ -141,22 +333,141 @@ func _internalAreaTest(originalArea :Area, originalArea2 :Area, numObjects :int)
 			area = originalArea2.duplicate()
 		else:
 			area = originalArea.duplicate()
-		area.translation = Vector3(rng.randf_range(0.0, 50.0), 0.0, rng.randf_range(0.0, 50.0))
+		area.translation = Vector3(rng.randf_range(0.0, objectRange), 0.0, rng.randf_range(0.0, objectRange))
 		add_child(area)
 		
-		# Two-three physics_frame seem to be the required minimum until Godot "knows" about colliding areas
-		# This might be depending on the machine running the code, but even having to wait one frame means waiting too long...
-		yield(get_tree(), "physics_frame")
-		yield(get_tree(), "physics_frame")
-		
-		# Check collision with the existing areas until one collision happens
-		for other in objectContainer:
-			var collides :bool = area.overlaps_area(other)
-			if collides:
-				numCollisions += 1
-				break
+		if preAdd == false:
+			# Two-three physics_frame seem to be the required minimum until Godot "knows" about colliding areas
+			# This might be depending on the machine running the code, but even having to wait one frame means waiting too long...
+			yield(get_tree(), "physics_frame")
+			yield(get_tree(), "physics_frame")
+			
+			# Check collision with the existing areas until one collision happens
+			for other in objectContainer:
+				var collides :bool = area.overlaps_area(other)
+				if collides:
+					numCollisions += 1
+					break
 		
 		objectContainer.push_back(area)
 	
+	# In preAdd scenario, check all collisions at once 
+	if preAdd:
+		yield(get_tree(), "physics_frame")
+		yield(get_tree(), "physics_frame")
+		yield(get_tree(), "physics_frame")
+		
+		for area in objectContainer:
+			for otherArea in objectContainer:
+				if area == otherArea:
+					continue
+				
+				var collides :bool = area.overlaps_area(otherArea)
+				if collides:
+					numCollisions += 1
+					break
+	
 	# Done
-	return numCollisions
+	outParam["result"] = numCollisions
+
+# Clear the object container and remove the objects from the scene
+func _clearObjectsArea():
+	for area in objectContainer:
+		remove_child(area)
+	objectContainer.clear()
+
+# Internal test for godotccd GJK type
+func _internalGJKTest(originalType :NativeScript, originalType2 :NativeScript, numObjects :int, outParam :Dictionary):
+	var numCollisions :int = 0
+	
+	# Add the first shape (just use identity matrix as rotation as we don't rotate in this test)
+	var rotation :Quat = Quat.IDENTITY
+	var position :Vector3 = Vector3(rng.randf_range(0.0, objectRange), 0.0, rng.randf_range(0.0, objectRange))
+	var dimensions :Vector3 = Vector3(1.0, 1.0, 1.0)
+	var shape = originalType.new();
+	if originalType == CCDBox:
+		shape.initialize(position, rotation, dimensions * 2)
+	elif originalType == CCDSphere:
+		shape.initialize(position, rotation, dimensions.x)
+	else:
+		shape.initialize(Vector3(position.x, position.y - dimensions.y, position.z), rotation, dimensions.x, dimensions.y * 2)
+	objectContainer.push_back(shape)
+	
+	# Add the rest of the shapes and check for collision with the rest
+	var chosenType = null
+	for i in range(0, numObjects-1):
+		# Add shape
+		if i % 2 == 1 && originalType2 != null:
+			shape = originalType2.new()
+			chosenType = originalType2
+		else:
+			shape = originalType.new()
+			chosenType = originalType
+		
+		# Initialize shape
+		position = Vector3(rng.randf_range(0.0, objectRange), 0.0, rng.randf_range(0.0, objectRange))
+		if chosenType == CCDBox:
+			shape.initialize(position, rotation, dimensions * 2)
+		elif chosenType == CCDSphere:
+			shape.initialize(position, rotation, dimensions.x)
+		else:
+			shape.initialize(Vector3(position.x, position.y - dimensions.y, position.z), rotation, dimensions.x, dimensions.y * 2)
+		
+		# Check collision with the existing shapes until a collision happens
+		for other in objectContainer:
+			var collides :bool = shape.collidesWithGJK(other)
+			if collides:
+				numCollisions += 1
+				break
+		objectContainer.push_back(shape)
+		
+	# Done
+	outParam["result"] = numCollisions
+
+# Internal test for godotccd MPR type
+func _internalMPRTest(originalType :NativeScript, originalType2 :NativeScript, numObjects :int, outParam :Dictionary):
+	var numCollisions :int = 0
+	
+	# Add the first shape (just use identity matrix as rotation as we don't rotate in this test)
+	var rotation :Quat = Quat(Transform.IDENTITY.basis)
+	var position :Vector3 = Vector3(rng.randf_range(0.0, objectRange), 0.0, rng.randf_range(0.0, objectRange))
+	var dimensions :Vector3 = Vector3(1.0, 1.0, 1.0)
+	var shape = originalType.new();
+	if originalType == CCDBox:
+		shape.initialize(position, rotation, dimensions * 2)
+	elif originalType == CCDSphere:
+		shape.initialize(position, rotation, dimensions.x)
+	else:
+		shape.initialize(Vector3(position.x, position.y - dimensions.y, position.z), rotation, dimensions.x, dimensions.y * 2)
+	objectContainer.push_back(shape)
+	
+	# Add the rest of the shapes and check for collision with the rest
+	var chosenType = null
+	for i in range(0, numObjects-1):
+		# Add shape
+		if i % 2 == 1 && originalType2 != null:
+			shape = originalType2.new()
+			chosenType = originalType2
+		else:
+			shape = originalType.new()
+			chosenType = originalType
+		
+		# Initialize shape
+		position = Vector3(rng.randf_range(0.0, objectRange), 0.0, rng.randf_range(0.0, objectRange))
+		if chosenType == CCDBox:
+			shape.initialize(position, rotation, dimensions * 2)
+		elif chosenType == CCDSphere:
+			shape.initialize(position, rotation, dimensions.x)
+		else:
+			shape.initialize(Vector3(position.x, position.y - dimensions.y, position.z), rotation, dimensions.x, dimensions.y * 2)
+		
+		# Check collision with the existing shapes until a collision happens
+		for other in objectContainer:
+			var collides :bool = shape.collidesWithMPR(other)
+			if collides:
+				numCollisions += 1
+				break
+		objectContainer.push_back(shape)
+		
+	# Done
+	outParam["result"] = numCollisions

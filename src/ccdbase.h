@@ -23,11 +23,44 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#ifndef GODOTCCD_H
-#define GODOTCCD_H
+#ifndef CCDBASE_H
+#define CCDBASE_H
 
-#include "ccdsphere.h"
-#include "ccdbox.h"
-#include "ccdcylinder.h"
+#include <Godot.hpp>
+#include <Dictionary.hpp>
+#include <Variant.hpp>
+#include "ccd/ccd.h"
+#include "testsuites/support.h"
 
-#endif
+namespace godot
+{
+    
+    /**
+    * @todo write docs
+    */
+    class CCDBase : public Object
+    {
+        GODOT_CLASS(CCDBase, Object)
+        
+    public:
+        static void _register_methods();
+        
+        /**
+        * Default constructor
+        */
+        CCDBase();
+
+        /**
+        * Destructor
+        */
+        virtual ~CCDBase();
+
+        void _init(); // our initializer called by Godot
+        
+    protected:
+        static ccd_t ccd;
+        static bool ccdInitialized;
+    };
+}
+
+#endif // CCDBASE_H

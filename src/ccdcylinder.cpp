@@ -23,59 +23,54 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
+#include "ccdcylinder.h"
 #include "ccdbox.h"
 #include "ccdsphere.h"
-#include "ccdcylinder.h"
 
 using namespace godot;
 
-void CCDBox::_register_methods() 
+void CCDCylinder::_register_methods() 
 {
-    register_method("initialize", &CCDBox::initialize);
-    register_method("collidesWithGJK", &CCDBox::collidesWithGJK);
-    register_method("collidesWithMPR", &CCDBox::collidesWithMPR);
-    register_method("getPosition", &CCDBox::getPosition);
-    register_method("getClassName", &CCDBox::getClassName);
+    register_method("initialize", &CCDCylinder::initialize);
+    register_method("collidesWithGJK", &CCDCylinder::collidesWithGJK);
+    register_method("collidesWithMPR", &CCDCylinder::collidesWithMPR);
+    register_method("getPosition", &CCDCylinder::getPosition);
+    register_method("getClassName", &CCDCylinder::getClassName);
 }
 
-
-CCDBox::CCDBox()
+CCDCylinder::CCDCylinder() 
     : CCDBase()
 {
     // Init sphere
-    ccdBox.type = CCD_OBJ_BOX;
-    ccdBox.quat = { .q = { 0., 0., 0., 1. } };
+    ccdCylinder.type = CCD_OBJ_CYL;
+    ccdCylinder.quat = { .q = { 0., 0., 0., 1. } };
 }
 
-CCDBox::~CCDBox()
-{
-
-}
-
-void 
-CCDBox::_init() 
+CCDCylinder::~CCDCylinder() 
 {
 }
 
 void 
-CCDBox::initialize(Vector3 position, Quat rotation, Vector3 dimensions)
+CCDCylinder::_init() 
 {
-    ccdBox.pos.v[0] = position.x;
-    ccdBox.pos.v[1] = position.y;
-    ccdBox.pos.v[2] = position.z;
-    ccdBox.x = dimensions.x;
-    ccdBox.y = dimensions.y;
-    ccdBox.z = dimensions.z;
-    ccdBox.quat.q[0] = rotation.x;
-    ccdBox.quat.q[1] = rotation.y;
-    ccdBox.quat.q[2] = rotation.z;
-    ccdBox.quat.q[3] = rotation.w;
-    
-//     Godot::print("Initialized CCDBox");
+}
+
+void 
+CCDCylinder::initialize(Vector3 position, Quat rotation, float radius, float height)
+{
+    ccdCylinder.radius = radius;
+    ccdCylinder.height = height;
+    ccdCylinder.pos.v[0] = position.x;
+    ccdCylinder.pos.v[1] = position.y;
+    ccdCylinder.pos.v[2] = position.z;
+    ccdCylinder.quat.q[0] = rotation.x;
+    ccdCylinder.quat.q[1] = rotation.y;
+    ccdCylinder.quat.q[2] = rotation.z;
+    ccdCylinder.quat.q[3] = rotation.w;
 }
 
 bool 
-CCDBox::collidesWithGJK(Variant other)
+CCDCylinder::collidesWithGJK(Variant other)
 {
     // Check the actual class of the other object
     CCDSphere* sphere = Object::cast_to<CCDSphere>(other.operator Object*());
@@ -86,28 +81,28 @@ CCDBox::collidesWithGJK(Variant other)
     bool intersect = false;
     if (sphere != nullptr)
     {
-        intersect = ccdGJKIntersect(&ccdBox, &(sphere->ccdSphere), &ccd);
+        intersect = ccdGJKIntersect(&ccdCylinder, &(sphere->ccdSphere), &ccd);
     }
     else if (box != nullptr)
     {
-        intersect = ccdGJKIntersect(&ccdBox, &(box->ccdBox), &ccd);
+        intersect = ccdGJKIntersect(&ccdCylinder, &(box->ccdBox), &ccd);
     }
     else if (cylinder != nullptr)
     {
-        intersect = ccdGJKIntersect(&ccdBox, &(cylinder->ccdCylinder), &ccd);
+        intersect = ccdGJKIntersect(&ccdCylinder, &(cylinder->ccdCylinder), &ccd);
     }
-
+    
     return intersect;
 }
 
 bool 
-CCDBox::collidesWithGJKPenetration(Variant other, Dictionary* outParam)
+CCDCylinder::collidesWithGJKPenetration(Variant other, Dictionary* outParam)
 {
     return true;
 }
 
 bool 
-CCDBox::collidesWithMPR(Variant other)
+CCDCylinder::collidesWithMPR(Variant other)
 {
     // Check the actual class of the other object
     CCDSphere* sphere = Object::cast_to<CCDSphere>(other.operator Object*());
@@ -118,22 +113,22 @@ CCDBox::collidesWithMPR(Variant other)
     bool intersect = false;
     if (sphere != nullptr)
     {
-        intersect = ccdMPRIntersect(&ccdBox, &(sphere->ccdSphere), &ccd);
+        intersect = ccdMPRIntersect(&ccdCylinder, &(sphere->ccdSphere), &ccd);
     }
     else if (box != nullptr)
     {
-        intersect = ccdMPRIntersect(&ccdBox, &(box->ccdBox), &ccd);
+        intersect = ccdMPRIntersect(&ccdCylinder, &(box->ccdBox), &ccd);
     }
     else if (cylinder != nullptr)
     {
-        intersect = ccdMPRIntersect(&ccdBox, &(cylinder->ccdCylinder), &ccd);
+        intersect = ccdMPRIntersect(&ccdCylinder, &(cylinder->ccdCylinder), &ccd);
     }
 
     return intersect;
 }
 
 Vector3 
-CCDBox::getPosition()
+CCDCylinder::getPosition()
 {
-    return Vector3(ccdBox.pos.v[0], ccdBox.pos.v[1], ccdBox.pos.v[2]);
+    return Vector3(ccdCylinder.pos.v[0], ccdCylinder.pos.v[1], ccdCylinder.pos.v[2]);
 }

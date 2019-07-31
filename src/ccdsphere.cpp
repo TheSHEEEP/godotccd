@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019 <copyright holder> <email>
+ * Copyright (c) 2019 Jan Drabner jd at jdrabner.eu
  * 
  * Permission is hereby granted, free of charge, to any person
  * obtaining a copy of this software and associated documentation
@@ -25,29 +25,22 @@
 
 #include "ccdsphere.h"
 #include "ccdbox.h"
+#include "ccdcylinder.h"
 
 using namespace godot;
-ccd_t CCDSphere::ccd;
-bool CCDSphere::ccdInitialized = false;
 
 void CCDSphere::_register_methods() 
 {
     register_method("initialize", &CCDSphere::initialize);
     register_method("collidesWithGJK", &CCDSphere::collidesWithGJK);
+    register_method("collidesWithMPR", &CCDSphere::collidesWithMPR);
+    register_method("getPosition", &CCDSphere::getPosition);
+    register_method("getClassName", &CCDSphere::getClassName);
 }
 
 CCDSphere::CCDSphere() 
+    : CCDBase()
 {
-    // Setup CCD
-    if (!ccdInitialized) 
-    {
-        CCD_INIT(&ccd);
-        ccd.support1       = ccdSupport;  // support function for first object
-        ccd.support2       = ccdSupport;  // support function for second object
-        ccd.max_iterations = 100;         // maximal number of iterations
-        ccdInitialized = true;
-    }
-    
     // Init sphere
     ccdSphere.type = CCD_OBJ_SPHERE;
     ccdSphere.quat = { .q = { 0., 0., 0., 1. } };
@@ -63,12 +56,17 @@ CCDSphere::_init()
 }
 
 void 
-CCDSphere::initialize(Vector3 position, float radius)
+CCDSphere::initialize(Vector3 position, Quat rotation, float radius)
 {
     ccdSphere.radius = radius;
     ccdSphere.pos.v[0] = position.x;
     ccdSphere.pos.v[1] = position.y;
     ccdSphere.pos.v[2] = position.z;
+    ccdSphere.quat.q[0] = rotation.x;
+    ccdSphere.quat.q[1] = rotation.y;
+    ccdSphere.quat.q[2] = rotation.z;
+    ccdSphere.quat.q[3] = rotation.w;
+    testRadius = radius;
 }
 
 bool 
@@ -77,11 +75,21 @@ CCDSphere::collidesWithGJK(Variant other)
     // Check the actual class of the other object
     CCDSphere* sphere = Object::cast_to<CCDSphere>(other.operator Object*());
     CCDBox* box = Object::cast_to<CCDBox>(other.operator Object*());
+    CCDCylinder* cylinder = Object::cast_to<CCDCylinder>(other.operator Object*());
     
+    // Check collision
     bool intersect = false;
     if (sphere != nullptr)
     {
         intersect = ccdGJKIntersect(&ccdSphere, &(sphere->ccdSphere), &ccd);
+    }
+    else if (box != nullptr)
+    {
+        intersect = ccdGJKIntersect(&ccdSphere, &(box->ccdBox), &ccd);
+    }
+    else if (cylinder != nullptr)
+    {
+        intersect = ccdGJKIntersect(&ccdSphere, &(cylinder->ccdCylinder), &ccd);
     }
 
     return intersect;
@@ -91,6 +99,38 @@ bool
 CCDSphere::collidesWithGJKPenetration(Variant other, Dictionary* outParam)
 {
     return true;
+}
+
+bool 
+CCDSphere::collidesWithMPR(Variant other)
+{
+    // Check the actual class of the other object
+    CCDSphere* sphere = Object::cast_to<CCDSphere>(other.operator Object*());
+    CCDBox* box = Object::cast_to<CCDBox>(other.operator Object*());
+    CCDCylinder* cylinder = Object::cast_to<CCDCylinder>(other.operator Object*());
+    
+    // Check collision
+    bool intersect = false;
+    if (sphere != nullptr)
+    {
+        intersect = ccdMPRIntersect(&ccdSphere, &(sphere->ccdSphere), &ccd);
+    }
+    else if (box != nullptr)
+    {
+        intersect = ccdMPRIntersect(&ccdSphere, &(box->ccdBox), &ccd);
+    }
+    else if (cylinder != nullptr)
+    {
+        intersect = ccdMPRIntersect(&ccdSphere, &(cylinder->ccdCylinder), &ccd);
+    }
+
+    return intersect;
+}
+
+Vector3 
+CCDSphere::getPosition()
+{
+    return Vector3(ccdSphere.pos.v[0], ccdSphere.pos.v[1], ccdSphere.pos.v[2]);
 }
 
 
