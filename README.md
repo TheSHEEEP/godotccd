@@ -9,7 +9,7 @@ Both GJK and MPR algorithms are included, so you can pick the one you want.
 
 ### Why not use Godot's physics for all collision checking?
 I was looking for a way to do very fast collision checking without requiring any kind of existing nodes, and unrelated to Godot's physics system as that would have been too slow and cumbersome for my needs.  
-Godot's collision checking is fine for most "everyday" needs, but if you need something very fast to do hundreds of checks for very simple shapes in less than a second, it won't suffice.  
+Godot's collision checking is perfectly fine for most "everyday" needs, but if you need something very fast to do hundreds of checks for very simple shapes in less than a second, it won't suffice.  
 
 The reason why Godot's physics is not sufficient for all cases is that Godot requires multiple physics frames until collision checks between objects in its physics world can even work. After something is added or moved, some physics frames need to pass until you can check for collisions.  
 That just doesn't cut it if you need maximum performance for a collision check **right now**.
@@ -86,9 +86,9 @@ And to perform a collision check with an out-parameter filled with details about
 ```GDScript
 # The out-parameter must be a Dictionary
 var collisionInfo :Dictionary = {}
-var collision :bool = ccdBox.collidesWithGJKPlusInfo(ccdSphere, collisionInfo)
+var collision :bool = ccdBox.collidesWithGJKAndInfo(ccdSphere, collisionInfo)
 # ... or MPR
-collision :bool = ccdBox.collidesWithMPRPlusInfo(ccdSphere, collisionInfo)
+collision :bool = ccdBox.collidesWithMPRAndInfo(ccdSphere, collisionInfo)
 
 # In both cases, the Dictionary will either be unchanged (if no collision) or hold the following keys
 # Collision point
