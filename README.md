@@ -12,7 +12,7 @@ I was looking for a way to do very fast collision checking without requiring any
 Godot's collision checking is perfectly fine for most "everyday" needs, but if you need something very fast to do hundreds of checks for very simple shapes in less than a second, it won't suffice.  
 
 The reason why Godot's physics is not sufficient for all cases is that Godot requires multiple physics frames until collision checks between objects in its physics world can even work. After something is added or moved, some physics frames need to pass until you can check for collisions.  
-That just doesn't cut it if you need maximum performance for a collision check **right now**.
+That just doesn't cut it if you need maximum performance for a few hundred collision checks **right now**.
 
 Hence I decided to implement [libccd](https://github.com/danfis/libccd), which is fast, lightweight and has a license fitting Godot's own.
 
