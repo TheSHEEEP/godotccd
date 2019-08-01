@@ -74,65 +74,25 @@ CCDCylinder::initialize(Vector3 position, Quat rotation, float radius, float hei
 bool 
 CCDCylinder::collidesWithGJK(Variant other)
 {
-    // Check the actual class of the other object
-    CCDSphere* sphere = Object::cast_to<CCDSphere>(other.operator Object*());
-    CCDBox* box = Object::cast_to<CCDBox>(other.operator Object*());
-    CCDCylinder* cylinder = Object::cast_to<CCDCylinder>(other.operator Object*());
-    
-    // Check collision
-    bool intersect = false;
-    if (sphere != nullptr)
-    {
-        intersect = ccdGJKIntersect(&ccdCylinder, &(sphere->ccdSphere), &ccd);
-    }
-    else if (box != nullptr)
-    {
-        intersect = ccdGJKIntersect(&ccdCylinder, &(box->ccdBox), &ccd);
-    }
-    else if (cylinder != nullptr)
-    {
-        intersect = ccdGJKIntersect(&ccdCylinder, &(cylinder->ccdCylinder), &ccd);
-    }
-    
-    return intersect;
+    return CCDBase::collidesWithGJK(other);
 }
 
 bool 
 CCDCylinder::collidesWithGJKAndInfo(Variant other, Dictionary outParam)
 {
-    return true;
+    return CCDBase::collidesWithGJKAndInfo(other, outParam);
 }
 
 bool 
 CCDCylinder::collidesWithMPR(Variant other)
 {
-    // Check the actual class of the other object
-    CCDSphere* sphere = Object::cast_to<CCDSphere>(other.operator Object*());
-    CCDBox* box = Object::cast_to<CCDBox>(other.operator Object*());
-    CCDCylinder* cylinder = Object::cast_to<CCDCylinder>(other.operator Object*());
-    
-    // Check collision
-    bool intersect = false;
-    if (sphere != nullptr)
-    {
-        intersect = ccdMPRIntersect(&ccdCylinder, &(sphere->ccdSphere), &ccd);
-    }
-    else if (box != nullptr)
-    {
-        intersect = ccdMPRIntersect(&ccdCylinder, &(box->ccdBox), &ccd);
-    }
-    else if (cylinder != nullptr)
-    {
-        intersect = ccdMPRIntersect(&ccdCylinder, &(cylinder->ccdCylinder), &ccd);
-    }
-
-    return intersect;
+    return CCDBase::collidesWithMPR(other);
 }
 
 bool 
 CCDCylinder::collidesWithMPRAndInfo(Variant other, Dictionary outParam)
 {
-    return true;
+    return CCDBase::collidesWithMPRAndInfo(other,outParam);
 }
 
 Vector3 

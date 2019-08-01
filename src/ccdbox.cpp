@@ -77,65 +77,25 @@ CCDBox::initialize(Vector3 position, Quat rotation, Vector3 dimensions)
 bool 
 CCDBox::collidesWithGJK(Variant other)
 {
-    // Check the actual class of the other object
-    CCDSphere* sphere = Object::cast_to<CCDSphere>(other.operator Object*());
-    CCDBox* box = Object::cast_to<CCDBox>(other.operator Object*());
-    CCDCylinder* cylinder = Object::cast_to<CCDCylinder>(other.operator Object*());
-    
-    // Check collision
-    bool intersect = false;
-    if (sphere != nullptr)
-    {
-        intersect = ccdGJKIntersect(&ccdBox, &(sphere->ccdSphere), &ccd);
-    }
-    else if (box != nullptr)
-    {
-        intersect = ccdGJKIntersect(&ccdBox, &(box->ccdBox), &ccd);
-    }
-    else if (cylinder != nullptr)
-    {
-        intersect = ccdGJKIntersect(&ccdBox, &(cylinder->ccdCylinder), &ccd);
-    }
-
-    return intersect;
+    return CCDBase::collidesWithGJK(other);
 }
 
 bool 
 CCDBox::collidesWithGJKAndInfo(Variant other, Dictionary outParam)
 {
-    return true;
+    return CCDBase::collidesWithGJKAndInfo(other, outParam);
 }
 
 bool 
 CCDBox::collidesWithMPR(Variant other)
 {
-    // Check the actual class of the other object
-    CCDSphere* sphere = Object::cast_to<CCDSphere>(other.operator Object*());
-    CCDBox* box = Object::cast_to<CCDBox>(other.operator Object*());
-    CCDCylinder* cylinder = Object::cast_to<CCDCylinder>(other.operator Object*());
-    
-    // Check collision
-    bool intersect = false;
-    if (sphere != nullptr)
-    {
-        intersect = ccdMPRIntersect(&ccdBox, &(sphere->ccdSphere), &ccd);
-    }
-    else if (box != nullptr)
-    {
-        intersect = ccdMPRIntersect(&ccdBox, &(box->ccdBox), &ccd);
-    }
-    else if (cylinder != nullptr)
-    {
-        intersect = ccdMPRIntersect(&ccdBox, &(cylinder->ccdCylinder), &ccd);
-    }
-
-    return intersect;
+    return CCDBase::collidesWithMPR(other);
 }
 
 bool 
 CCDBox::collidesWithMPRAndInfo(Variant other, Dictionary outParam)
 {
-    return true;
+    return CCDBase::collidesWithMPRAndInfo(other,outParam);
 }
 
 Vector3 

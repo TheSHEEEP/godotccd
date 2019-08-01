@@ -40,7 +40,7 @@ text = "Press Space to begin the next test..."
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 margin_right = 1440.0
-margin_bottom = 260.0
+margin_bottom = 278.0
 grow_horizontal = 0
 grow_vertical = 0
 alignment = 1
@@ -48,14 +48,14 @@ alignment = 1
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 editor/display_folded = true
 margin_right = 1440.0
-margin_bottom = 53.0
+margin_bottom = 32.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 alignment = 1
 
 [node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/HBoxContainer"]
 margin_right = 195.0
-margin_bottom = 53.0
+margin_bottom = 32.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_fonts/normal_font = ExtResource( 3 )
@@ -63,12 +63,12 @@ custom_fonts/normal_font = ExtResource( 3 )
 [node name="VSeparator" type="VSeparator" parent="VBoxContainer/HBoxContainer"]
 margin_left = 199.0
 margin_right = 203.0
-margin_bottom = 53.0
+margin_bottom = 32.0
 
 [node name="RichTextLabel2" type="RichTextLabel" parent="VBoxContainer/HBoxContainer"]
 margin_left = 207.0
 margin_right = 402.0
-margin_bottom = 53.0
+margin_bottom = 32.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_fonts/normal_font = ExtResource( 3 )
@@ -79,12 +79,12 @@ text = "Box <> Box"
 [node name="VSeparator2" type="VSeparator" parent="VBoxContainer/HBoxContainer"]
 margin_left = 406.0
 margin_right = 410.0
-margin_bottom = 53.0
+margin_bottom = 32.0
 
 [node name="RichTextLabel3" type="RichTextLabel" parent="VBoxContainer/HBoxContainer"]
 margin_left = 414.0
 margin_right = 609.0
-margin_bottom = 53.0
+margin_bottom = 32.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_fonts/normal_font = ExtResource( 3 )
@@ -95,12 +95,12 @@ text = "Sphere <> Sphere"
 [node name="VSeparator3" type="VSeparator" parent="VBoxContainer/HBoxContainer"]
 margin_left = 613.0
 margin_right = 617.0
-margin_bottom = 53.0
+margin_bottom = 32.0
 
 [node name="RichTextLabel4" type="RichTextLabel" parent="VBoxContainer/HBoxContainer"]
 margin_left = 621.0
 margin_right = 816.0
-margin_bottom = 53.0
+margin_bottom = 32.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_fonts/normal_font = ExtResource( 3 )
@@ -111,12 +111,12 @@ text = "Cylinder <> Cylinder"
 [node name="VSeparator4" type="VSeparator" parent="VBoxContainer/HBoxContainer"]
 margin_left = 820.0
 margin_right = 824.0
-margin_bottom = 53.0
+margin_bottom = 32.0
 
 [node name="RichTextLabel5" type="RichTextLabel" parent="VBoxContainer/HBoxContainer"]
 margin_left = 828.0
 margin_right = 1023.0
-margin_bottom = 53.0
+margin_bottom = 32.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_fonts/normal_font = ExtResource( 3 )
@@ -127,12 +127,12 @@ text = "Box <> Sphere"
 [node name="VSeparator5" type="VSeparator" parent="VBoxContainer/HBoxContainer"]
 margin_left = 1027.0
 margin_right = 1031.0
-margin_bottom = 53.0
+margin_bottom = 32.0
 
 [node name="RichTextLabel6" type="RichTextLabel" parent="VBoxContainer/HBoxContainer"]
 margin_left = 1035.0
 margin_right = 1230.0
-margin_bottom = 53.0
+margin_bottom = 32.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_fonts/normal_font = ExtResource( 3 )
@@ -143,12 +143,12 @@ text = "Box <> Cylinder"
 [node name="VSeparator6" type="VSeparator" parent="VBoxContainer/HBoxContainer"]
 margin_left = 1234.0
 margin_right = 1238.0
-margin_bottom = 53.0
+margin_bottom = 32.0
 
 [node name="RichTextLabel7" type="RichTextLabel" parent="VBoxContainer/HBoxContainer"]
 margin_left = 1242.0
 margin_right = 1440.0
-margin_bottom = 53.0
+margin_bottom = 32.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_fonts/normal_font = ExtResource( 3 )
@@ -157,15 +157,15 @@ bbcode_text = "[center]Sphere <> Cylinder[/center]"
 text = "Sphere <> Cylinder"
 
 [node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
-margin_top = 57.0
+margin_top = 36.0
 margin_right = 1440.0
-margin_bottom = 61.0
+margin_bottom = 40.0
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
 editor/display_folded = true
-margin_top = 65.0
+margin_top = 44.0
 margin_right = 1440.0
-margin_bottom = 129.0
+margin_bottom = 108.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 alignment = 1
@@ -266,21 +266,21 @@ custom_fonts/normal_font = ExtResource( 3 )
 bbcode_enabled = true
 
 [node name="HSeparator2" type="HSeparator" parent="VBoxContainer"]
-margin_top = 133.0
+margin_top = 112.0
 margin_right = 1440.0
-margin_bottom = 137.0
+margin_bottom = 116.0
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer"]
 editor/display_folded = true
-margin_top = 141.0
+margin_top = 120.0
 margin_right = 1440.0
-margin_bottom = 194.0
+margin_bottom = 152.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="lblGJKTitle" type="RichTextLabel" parent="VBoxContainer/HBoxContainer3"]
 margin_right = 195.0
-margin_bottom = 53.0
+margin_bottom = 32.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_fonts/normal_font = ExtResource( 3 )
@@ -291,12 +291,12 @@ text = "godotccd GJK"
 [node name="VSeparator" type="VSeparator" parent="VBoxContainer/HBoxContainer3"]
 margin_left = 199.0
 margin_right = 203.0
-margin_bottom = 53.0
+margin_bottom = 32.0
 
 [node name="lblGJKBB" type="RichTextLabel" parent="VBoxContainer/HBoxContainer3"]
 margin_left = 207.0
 margin_right = 402.0
-margin_bottom = 53.0
+margin_bottom = 32.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_fonts/normal_font = ExtResource( 3 )
@@ -305,12 +305,12 @@ bbcode_enabled = true
 [node name="VSeparator2" type="VSeparator" parent="VBoxContainer/HBoxContainer3"]
 margin_left = 406.0
 margin_right = 410.0
-margin_bottom = 53.0
+margin_bottom = 32.0
 
 [node name="lblGJKSS" type="RichTextLabel" parent="VBoxContainer/HBoxContainer3"]
 margin_left = 414.0
 margin_right = 609.0
-margin_bottom = 53.0
+margin_bottom = 32.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_fonts/normal_font = ExtResource( 3 )
@@ -319,12 +319,12 @@ bbcode_enabled = true
 [node name="VSeparator3" type="VSeparator" parent="VBoxContainer/HBoxContainer3"]
 margin_left = 613.0
 margin_right = 617.0
-margin_bottom = 53.0
+margin_bottom = 32.0
 
 [node name="lblGJKCC" type="RichTextLabel" parent="VBoxContainer/HBoxContainer3"]
 margin_left = 621.0
 margin_right = 816.0
-margin_bottom = 53.0
+margin_bottom = 32.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_fonts/normal_font = ExtResource( 3 )
@@ -333,12 +333,12 @@ bbcode_enabled = true
 [node name="VSeparator4" type="VSeparator" parent="VBoxContainer/HBoxContainer3"]
 margin_left = 820.0
 margin_right = 824.0
-margin_bottom = 53.0
+margin_bottom = 32.0
 
 [node name="lblGJKBS" type="RichTextLabel" parent="VBoxContainer/HBoxContainer3"]
 margin_left = 828.0
 margin_right = 1023.0
-margin_bottom = 53.0
+margin_bottom = 32.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_fonts/normal_font = ExtResource( 3 )
@@ -347,12 +347,12 @@ bbcode_enabled = true
 [node name="VSeparator5" type="VSeparator" parent="VBoxContainer/HBoxContainer3"]
 margin_left = 1027.0
 margin_right = 1031.0
-margin_bottom = 53.0
+margin_bottom = 32.0
 
 [node name="lblGJKBC" type="RichTextLabel" parent="VBoxContainer/HBoxContainer3"]
 margin_left = 1035.0
 margin_right = 1230.0
-margin_bottom = 53.0
+margin_bottom = 32.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_fonts/normal_font = ExtResource( 3 )
@@ -361,32 +361,33 @@ bbcode_enabled = true
 [node name="VSeparator6" type="VSeparator" parent="VBoxContainer/HBoxContainer3"]
 margin_left = 1234.0
 margin_right = 1238.0
-margin_bottom = 53.0
+margin_bottom = 32.0
 
 [node name="lblGJKSC" type="RichTextLabel" parent="VBoxContainer/HBoxContainer3"]
 margin_left = 1242.0
 margin_right = 1440.0
-margin_bottom = 53.0
+margin_bottom = 32.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_fonts/normal_font = ExtResource( 3 )
 bbcode_enabled = true
 
 [node name="HSeparator3" type="HSeparator" parent="VBoxContainer"]
-margin_top = 198.0
+margin_top = 156.0
 margin_right = 1440.0
-margin_bottom = 202.0
+margin_bottom = 160.0
 
 [node name="HBoxContainer4" type="HBoxContainer" parent="VBoxContainer"]
-margin_top = 206.0
+editor/display_folded = true
+margin_top = 164.0
 margin_right = 1440.0
-margin_bottom = 260.0
+margin_bottom = 196.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="lblMPRTitle" type="RichTextLabel" parent="VBoxContainer/HBoxContainer4"]
 margin_right = 195.0
-margin_bottom = 54.0
+margin_bottom = 32.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_fonts/normal_font = ExtResource( 3 )
@@ -397,12 +398,12 @@ text = "godotccd MPR"
 [node name="VSeparator" type="VSeparator" parent="VBoxContainer/HBoxContainer4"]
 margin_left = 199.0
 margin_right = 203.0
-margin_bottom = 54.0
+margin_bottom = 32.0
 
 [node name="lblMPRBB" type="RichTextLabel" parent="VBoxContainer/HBoxContainer4"]
 margin_left = 207.0
 margin_right = 402.0
-margin_bottom = 54.0
+margin_bottom = 32.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_fonts/normal_font = ExtResource( 3 )
@@ -411,12 +412,12 @@ bbcode_enabled = true
 [node name="VSeparator2" type="VSeparator" parent="VBoxContainer/HBoxContainer4"]
 margin_left = 406.0
 margin_right = 410.0
-margin_bottom = 54.0
+margin_bottom = 32.0
 
 [node name="lblMPRSS" type="RichTextLabel" parent="VBoxContainer/HBoxContainer4"]
 margin_left = 414.0
 margin_right = 609.0
-margin_bottom = 54.0
+margin_bottom = 32.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_fonts/normal_font = ExtResource( 3 )
@@ -425,12 +426,12 @@ bbcode_enabled = true
 [node name="VSeparator3" type="VSeparator" parent="VBoxContainer/HBoxContainer4"]
 margin_left = 613.0
 margin_right = 617.0
-margin_bottom = 54.0
+margin_bottom = 32.0
 
 [node name="lblMPRCC" type="RichTextLabel" parent="VBoxContainer/HBoxContainer4"]
 margin_left = 621.0
 margin_right = 816.0
-margin_bottom = 54.0
+margin_bottom = 32.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_fonts/normal_font = ExtResource( 3 )
@@ -439,12 +440,12 @@ bbcode_enabled = true
 [node name="VSeparator4" type="VSeparator" parent="VBoxContainer/HBoxContainer4"]
 margin_left = 820.0
 margin_right = 824.0
-margin_bottom = 54.0
+margin_bottom = 32.0
 
 [node name="lblMPRBS" type="RichTextLabel" parent="VBoxContainer/HBoxContainer4"]
 margin_left = 828.0
 margin_right = 1023.0
-margin_bottom = 54.0
+margin_bottom = 32.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_fonts/normal_font = ExtResource( 3 )
@@ -453,12 +454,12 @@ bbcode_enabled = true
 [node name="VSeparator5" type="VSeparator" parent="VBoxContainer/HBoxContainer4"]
 margin_left = 1027.0
 margin_right = 1031.0
-margin_bottom = 54.0
+margin_bottom = 32.0
 
 [node name="lblMPRBC" type="RichTextLabel" parent="VBoxContainer/HBoxContainer4"]
 margin_left = 1035.0
 margin_right = 1230.0
-margin_bottom = 54.0
+margin_bottom = 32.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_fonts/normal_font = ExtResource( 3 )
@@ -467,12 +468,121 @@ bbcode_enabled = true
 [node name="VSeparator6" type="VSeparator" parent="VBoxContainer/HBoxContainer4"]
 margin_left = 1234.0
 margin_right = 1238.0
-margin_bottom = 54.0
+margin_bottom = 32.0
 
 [node name="lblMPRSC" type="RichTextLabel" parent="VBoxContainer/HBoxContainer4"]
 margin_left = 1242.0
 margin_right = 1440.0
-margin_bottom = 54.0
+margin_bottom = 32.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/normal_font = ExtResource( 3 )
+bbcode_enabled = true
+
+[node name="HSeparator4" type="HSeparator" parent="VBoxContainer"]
+margin_top = 200.0
+margin_right = 1440.0
+margin_bottom = 204.0
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="VBoxContainer"]
+margin_top = 208.0
+margin_right = 1440.0
+margin_bottom = 278.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="lblInfoTitle" type="RichTextLabel" parent="VBoxContainer/HBoxContainer5"]
+margin_right = 195.0
+margin_bottom = 70.0
+rect_min_size = Vector2( 0, 70 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/normal_font = ExtResource( 3 )
+bbcode_enabled = true
+bbcode_text = "[center]GJK & MPR[/center]
+[center]with info[/center]"
+text = "GJK & MPR
+with info"
+
+[node name="VSeparator" type="VSeparator" parent="VBoxContainer/HBoxContainer5"]
+margin_left = 199.0
+margin_right = 203.0
+margin_bottom = 70.0
+
+[node name="lblInfoBB" type="RichTextLabel" parent="VBoxContainer/HBoxContainer5"]
+margin_left = 207.0
+margin_right = 402.0
+margin_bottom = 70.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/normal_font = ExtResource( 3 )
+bbcode_enabled = true
+
+[node name="VSeparator2" type="VSeparator" parent="VBoxContainer/HBoxContainer5"]
+margin_left = 406.0
+margin_right = 410.0
+margin_bottom = 70.0
+
+[node name="lblInfoSS" type="RichTextLabel" parent="VBoxContainer/HBoxContainer5"]
+margin_left = 414.0
+margin_right = 609.0
+margin_bottom = 70.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/normal_font = ExtResource( 3 )
+bbcode_enabled = true
+
+[node name="VSeparator3" type="VSeparator" parent="VBoxContainer/HBoxContainer5"]
+margin_left = 613.0
+margin_right = 617.0
+margin_bottom = 70.0
+
+[node name="lblInfoCC" type="RichTextLabel" parent="VBoxContainer/HBoxContainer5"]
+margin_left = 621.0
+margin_right = 816.0
+margin_bottom = 70.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/normal_font = ExtResource( 3 )
+bbcode_enabled = true
+
+[node name="VSeparator4" type="VSeparator" parent="VBoxContainer/HBoxContainer5"]
+margin_left = 820.0
+margin_right = 824.0
+margin_bottom = 70.0
+
+[node name="lblInfoBS" type="RichTextLabel" parent="VBoxContainer/HBoxContainer5"]
+margin_left = 828.0
+margin_right = 1023.0
+margin_bottom = 70.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/normal_font = ExtResource( 3 )
+bbcode_enabled = true
+
+[node name="VSeparator5" type="VSeparator" parent="VBoxContainer/HBoxContainer5"]
+margin_left = 1027.0
+margin_right = 1031.0
+margin_bottom = 70.0
+
+[node name="lblInfoBC" type="RichTextLabel" parent="VBoxContainer/HBoxContainer5"]
+margin_left = 1035.0
+margin_right = 1230.0
+margin_bottom = 70.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/normal_font = ExtResource( 3 )
+bbcode_enabled = true
+
+[node name="VSeparator6" type="VSeparator" parent="VBoxContainer/HBoxContainer5"]
+margin_left = 1234.0
+margin_right = 1238.0
+margin_bottom = 70.0
+
+[node name="lblInfoSC" type="RichTextLabel" parent="VBoxContainer/HBoxContainer5"]
+margin_left = 1242.0
+margin_right = 1440.0
+margin_bottom = 70.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_fonts/normal_font = ExtResource( 3 )
@@ -480,7 +590,7 @@ bbcode_enabled = true
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
 margin_left = 170.0
-margin_top = 320.0
+margin_top = 380.0
 margin_right = 1280.0
 margin_bottom = 790.0
 custom_fonts/normal_font = ExtResource( 3 )
@@ -491,9 +601,7 @@ Each test is done by adding 300 shapes.
 Before each shape is added at a random position, it is tested for collision with each already existing shape. And then added anyway (to make the test a bit faster).
 Therefore, the first added shape requires 0 collision checks, and the last one up to 299.
 
-Each row uses the same random seeds to guarantee the same number of checks to be made.
-
 Area specialties:
 The Area results are actually still \"too fast\" due to the physics_fps being set to an unreasonably high number (180fps, so that this test row would complete faster).
-The second row of Area is a test in which all shapes have been pre-added, then waited for a few physics frames to make sure all collisions can be tested at once. That isn't a realistic test (and has more collisions), but it shows that the collision checks have already been done by the physics world, hence only the results must be grabbed.
+The second row of Area is a test in which all shapes have been pre-added to make sure all collisions can be tested at once. That isn't a realistic test (usually, things move around and get added/removed), but it shows that the slowness of Godot's collision checking definitely comes from having to wait for physics frames.
 "

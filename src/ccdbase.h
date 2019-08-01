@@ -29,6 +29,7 @@
 #include <Godot.hpp>
 #include <Dictionary.hpp>
 #include <Variant.hpp>
+#include <Defs.hpp>
 #include "ccd/ccd.h"
 #include "testsuites/support.h"
 
@@ -69,29 +70,34 @@ namespace godot
         /**
          * @brief Returns true if this object collides with the passed one.
          */
-        virtual bool collidesWithGJK(Variant other) = 0;
+        bool collidesWithGJK(Variant other);
         
         /**
          * @brief   Returns true if this object collides with the passed one.
          *          Will also fill the outParam with details about the collision.
          */
-        virtual bool collidesWithGJKAndInfo(Variant other, Dictionary outParam) = 0;
+        bool collidesWithGJKAndInfo(Variant other, Dictionary outParam);
         
         /**
          * @brief Returns true if this object collides with the passed one.
          */
-        virtual bool collidesWithMPR(Variant other) = 0;
+        bool collidesWithMPR(Variant other);
         
         /**
          * @brief   Returns true if this object collides with the passed one.
          *          Will also fill the outParam with details about the collision.
          */
-        virtual bool collidesWithMPRAndInfo(Variant other, Dictionary outParam) = 0;
+        bool collidesWithMPRAndInfo(Variant other, Dictionary outParam);
         
         /**
          * @brief Returns the position.
          */
-        virtual Vector3 getPosition() = 0;
+        virtual Vector3 getPosition() { return Vector3(0.0f, 0.0f, 0.0f); }
+        
+        /**
+         * @brief Returns the ccd struct used by this class.
+         */
+        virtual void* getCCDStruct() { return nullptr; }
         
         /**
          * @brief Returns the type.

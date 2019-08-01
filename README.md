@@ -7,9 +7,9 @@ Both GJK and MPR algorithms are included, so you can pick the one you want.
 **It is:** A module that allows extremely fast collision checking between arbitrary boxes, cylinders and spheres independent of Godot's internal simulations, scenes & rendering. And only that.  
 **It isn't:** A replacement for Godot's physics or collision system.
 
-### Why not use Godot's physics for collision checking?
+### Why not use Godot's physics for all collision checking?
 I was looking for a way to do very fast collision checking without requiring any kind of existing nodes, and unrelated to Godot's physics system as that would have been too slow and cumbersome for my needs.  
-Godot's collision checking is fine for most "everyday" needs, but if you need something very fast to do hundreds of checks for very simple shapes in just some milliseconds, it won't suffice.  
+Godot's collision checking is fine for most "everyday" needs, but if you need something very fast to do hundreds of checks for very simple shapes in less than a second, it won't suffice.  
 
 The reason why Godot's physics is not sufficient for all cases is that Godot requires multiple physics frames until collision checks between objects in its physics world can even work. After something is added or moved, some physics frames need to pass until you can check for collisions.  
 That just doesn't cut it if you need maximum performance for a collision check **right now**.
@@ -56,9 +56,9 @@ const CCDCylinder 	:NativeScript = preload("res://addons/godotccd/ccdCylinder.gd
 
 After that, you can create a sphere, box or cylinder using those NativeScript objects:
 ```GDScript
-var ccdBox :Object = CCDBox.new()
-var ccdSphere :Object = CCDSphere.new()
-var ccdCylinder :Object = CCDCylinder.new()
+var ccdBox = CCDBox.new()
+var ccdSphere = CCDSphere.new()
+var ccdCylinder = CCDCylinder.new()
 ```
 
 Remember that you need to initialize() any shape to give it its proper measurement:
@@ -91,9 +91,14 @@ var collision :bool = ccdBox.collidesWithGJKPlusInfo(ccdSphere, collisionInfo)
 collision :bool = ccdBox.collidesWithMPRPlusInfo(ccdSphere, collisionInfo)
 
 # In both cases, the Dictionary will either be unchanged (if no collision) or hold the following keys
-var
+# Collision point
+var position :Vector3 = collisionInfo["position"]
+# Collision direction
+var direction :Vector3 = collisionInfo["direction"]
+# Collision depth
+var depth :float = collisionInfo["depth"]
 ```
-Please note that this will take a bit longer to calculate than doing "just" a collision check. So make sure to only use it if you need the collision data.
+Please note that this will take a bit longer to calculate than doing "just" a collision check, about 10-20% in my experience. So make sure to only use it if you really need the collision information.
 
 Finally, there are a few functions to get info at runtime from the godotccd shapes:
 ```GDScript
@@ -108,18 +113,32 @@ Again, I might add more here if the need comes up.
 
 There is! And it showcases the extreme speed difference between doing collision checks with freshly added shapes via Godot's Area and godotccd shapes.  
 
-To be fair, though, it also shows that the fastest variant is actually Godot's area after all shapes have been added and "registered" by its physics world. Of course, that is only fast as long as nothing moves or is removed/added, etc. which isn't realistic in all cases - hence the need for this module.
-
 Simply open the project under /demo. But don't forget to compile the module first.
+
+To be fair, though, it also shows that the fastest Godot variant is actually Godot's area after all shapes have been added and "registered" by its physics world. Of course, that is only fast as long as nothing moves or is removed/added, etc. which isn't realistic in all cases - hence the need for this module.  
+And even this fastest case is still slower than using godotccd for the same check.
 
 ### Hints
 
-**Generous Cylinders:** Please note that both GJK and MPR methods always (at least in my tests) find a few more collisions when cylinders are involved than Godot's Area.  
-If that is down to Godot's physics not knowing about all objects yet or if libccd is more "generous" in what it considers an intersection or if one of the libraries' cylinder math is faulty - unknown.  
-If this is a problem for your case, you might be better off not using cylinders, or decreasing their size for godotccd.
+**Cylinders:**  
+Note that ccd's cylinders have their pivot at their bottom, instead of their middle like Godot's cylinders.
 
-**Prepare Your Shapes:** Since there is a rather large cost in creating new native objects from GDScript (as well as a certain overhead in calling native functions), it is wise to have the boxes, spheres and cylinders you need created beforehand. Even initialized, if possible.  
+**Prepare Your Shapes:**  
+Since there is a rather large cost in creating new native objects from GDScript (as well as a certain overhead in calling native functions), it is wise to have the boxes, spheres and cylinders you need created beforehand. Even initialized, if possible.  
 Not strictly necessary, mind you, as it is still very fast doing ad-hoc as the demo shows. But if you're using this module, you probably need to squeeze as much performance as possible.
 
-**GJK vs MPR:** Supposedly, MPR is faster, but a bit less accurate. In my tests, I couldn't really see any difference in performance (and I did my demo test with up to 10000 comparisons...). And neither could I find any significant difference in accuracy. Maybe those differences would show up with much larger/smaller objects.  
+**GJK vs MPR:**  
+Supposedly, MPR is faster, but a bit less accurate. In my tests, I couldn't really see any difference in performance (and I did my demo test with up to 10000 comparisons...). And neither could I find any difference in accuracy. Maybe those differences would show up with much larger/smaller objects or under other circumstance that I did not encounter.  
 But as it is, I have a no real recommendation here.
+
+**The collision results are not 100% equal to Godot's!**  
+That is true. If you need a module that returns 100% the same results as Godot, this module is not for you.
+
+Most likely due to differences in how collision math is done internally between Godot and libccd, you will find a few collisions checks (usually in very close call cases) to not return the same result in Godot and godotccd. Í've never found this to affect more than 1-5% of cases, but it does happen.  
+
+My findings on this phenomenon are, that if it happens...
+1. Spheres are entirely unaffected (most likely due to the rotation being irrelevant).
+2. Boxes are only affected if they are rotated.
+3. Cylinders are always affected.
+4. For boxes, libccd is more likely to report a collision where Godot doesn't. For cylinders, the opposite is true.
+5. The more "wild" the rotations, the more likely that anything is affected.

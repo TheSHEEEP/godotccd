@@ -39,6 +39,7 @@ extern "C" void GDN_EXPORT godot_nativescript_init(void* handle)
 {
     godot::Godot::nativescript_init(handle); 
 
+    godot::register_class<godot::CCDBase>();
     godot::register_class<godot::CCDSphere>();
     godot::register_class<godot::CCDBox>();
     godot::register_class<godot::CCDCylinder>();

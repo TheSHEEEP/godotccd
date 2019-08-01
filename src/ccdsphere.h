@@ -54,29 +54,34 @@ namespace godot
         /**
          * @brief Returns true if this object collides with the passed one.
          */
-        virtual bool collidesWithGJK(Variant other);
+        bool collidesWithGJK(Variant other);
         
         /**
          * @brief   Returns true if this object collides with the passed one.
          *          Will also fill the outParam with details about the collision.
          */
-        virtual bool collidesWithGJKAndInfo(Variant other, Dictionary outParam);
+        bool collidesWithGJKAndInfo(Variant other, Dictionary outParam);
         
         /**
          * @brief Returns true if this object collides with the passed one.
          */
-        virtual bool collidesWithMPR(Variant other);
+        bool collidesWithMPR(Variant other);
         
         /**
          * @brief   Returns true if this object collides with the passed one.
          *          Will also fill the outParam with details about the collision.
          */
-        virtual bool collidesWithMPRAndInfo(Variant other, Dictionary outParam);
+        bool collidesWithMPRAndInfo(Variant other, Dictionary outParam);
         
         /**
          * @brief Returns the position.
          */
         virtual Vector3 getPosition();
+        
+        /**
+         * @brief Returns the ccd struct used by this class.
+         */
+        virtual void* getCCDStruct() { return (void*)&ccdSphere; }
         
         /**
          * @brief Returns the type.
@@ -88,4 +93,4 @@ namespace godot
     };
 }
 
-#endif // CCDSPHERE_H
+#endif // CCDCYLINDER_H
