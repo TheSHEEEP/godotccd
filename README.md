@@ -16,7 +16,7 @@ That just doesn't cut it if you need maximum performance for a collision check *
 
 Hence I decided to implement [libccd](https://github.com/danfis/libccd), which is fast, lightweight and has a license fitting Godot's own.
 
-### How to build?
+### How to build
 Note that I build for linux 64bit release in this guide, but you can change those options, of course (check the [build system documentation](https://docs.godotengine.org/en/3.1/development/compiling/introduction_to_the_buildsystem.html)).  
 I don't see a reason why this module wouldn't work on any other desktop platform.
 
@@ -39,13 +39,13 @@ scons platforms=linux target=release -j 4
 ```
 The compiled gdnative module should now be under demo/godotccd/bin.
 
-### How to integrate into your project?
+### How to integrate godotccd into your project
 Copy the `demo/addons/godotccd` folder to your own project, make sure to place it in an identical path, e.g. `<yourProject>/addons/godotccd`. Otherwise, the paths inside the various files won't work.  
 Of course, you are free to place it anywhere, but then you'll have to adjust the paths yourself.
 
 Please also read [this guide](https://docs.godotengine.org/en/3.1/tutorials/plugins/gdnative/gdnative-cpp-example.html#using-the-gdnative-module) on how to use C++ GDNative modules.
 
-### How to use?
+### How to use
 
 First of all, make sure the native scripts are loaded:
 ```GDScript
@@ -109,13 +109,13 @@ var type :int = someCCDShape.getCCDType()
 ```
 Again, I might add more here if the need comes up.
 
-### Is there a demo?
+### Demo/Example code
 
-There is! And it showcases the extreme speed difference between doing collision checks with freshly added shapes via Godot's Area and godotccd shapes.  
+There is a demo! And it showcases the extreme speed difference between doing collision checks with freshly added shapes via Godot's Area and godotccd shapes.  
 
 Simply open the project under /demo. But don't forget to compile the module first.
 
-To be fair, though, it also shows that the fastest Godot variant is actually Godot's area after all shapes have been added and "registered" by its physics world. Of course, that is only fast as long as nothing moves or is removed/added, etc. which isn't realistic in all cases - hence the need for this module.  
+It also shows that the fastest Godot variant is actually Godot's area after all shapes have been added and "registered" by its physics world. Of course, that is only fast as long as nothing moves or is removed/added, etc. so no further waiting for physics frames is required to check collisions. Which isn't realistic in all cases - hence the need for this module.  
 And even this fastest case is still slower than using godotccd for the same check.
 
 ### Hints
