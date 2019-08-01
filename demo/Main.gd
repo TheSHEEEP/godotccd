@@ -11,6 +11,7 @@ var objectContainer :Array = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	print(CCDSphere.new())
 	pass
 
 # Called when the user presses a key
@@ -30,15 +31,15 @@ func _input(event :InputEvent) -> void:
 func doNextTest(testIndex :int) -> void:
 	if testIndex == 0:
 		$lblAdvance.bbcode_text = "[center]Doing area test... patience, please[/center]"
-		yield(doAreaTest(500), "completed")
+		yield(doAreaTest(300), "completed")
 		$lblAdvance.bbcode_text = "[center]Area test done. Press space to run the next test...[/center]"
 	if testIndex == 1:
 		$lblAdvance.bbcode_text = "[center]Doing godotccd GJK test...[/center]"
-		yield(doCCDGJKTest(500), "completed")
+		yield(doCCDGJKTest(300), "completed")
 		$lblAdvance.bbcode_text = "[center]godotccd GJK test done. Press space to run the next test...[/center]"
 	if testIndex == 2:
 		$lblAdvance.bbcode_text = "[center]Doing godotccd MPR test...[/center]"
-		yield(doCCDMPRTest(500), "completed")
+		yield(doCCDMPRTest(300), "completed")
 		$lblAdvance.bbcode_text = "[center]godotccd MPR test done. Hooray! (>^.^)>[/center]"
 
 # Do the area test
@@ -252,6 +253,7 @@ func doCCDMPRTest(numObjects :int) -> void:
 	var timeTotal :int = timerEnd - timerStart
 	var bbCode :String = "[center]{0}ms ({1})[/center]".format([timeTotal, numCollisions])
 	$VBoxContainer/HBoxContainer4/lblMPRBB.bbcode_text = bbCode
+	yield(get_tree(), "idle_frame")
 	
 	# Sphere vs Sphere test
 	timerStart = OS.get_ticks_msec()
@@ -380,7 +382,7 @@ func _clearObjectsArea():
 func _internalGJKTest(originalType :NativeScript, originalType2 :NativeScript, numObjects :int, outParam :Dictionary):
 	var numCollisions :int = 0
 	
-	# Add the first shape (just use identity matrix as rotation as we don't rotate in this test)
+	# Add the first shape (just use identity as rotation as we don't rotate in this test)
 	var rotation :Quat = Quat.IDENTITY
 	var position :Vector3 = Vector3(rng.randf_range(0.0, objectRange), 0.0, rng.randf_range(0.0, objectRange))
 	var dimensions :Vector3 = Vector3(1.0, 1.0, 1.0)

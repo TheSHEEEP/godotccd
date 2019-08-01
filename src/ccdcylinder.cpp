@@ -34,8 +34,10 @@ void CCDCylinder::_register_methods()
     register_method("initialize", &CCDCylinder::initialize);
     register_method("collidesWithGJK", &CCDCylinder::collidesWithGJK);
     register_method("collidesWithMPR", &CCDCylinder::collidesWithMPR);
+    register_method("collidesWithGJKAndInfo", &CCDCylinder::collidesWithGJKAndInfo);
+    register_method("collidesWithMPRAndInfo", &CCDCylinder::collidesWithMPRAndInfo);
     register_method("getPosition", &CCDCylinder::getPosition);
-    register_method("getClassName", &CCDCylinder::getClassName);
+    register_method("getCCDType", &CCDCylinder::getCCDType);
 }
 
 CCDCylinder::CCDCylinder() 
@@ -58,8 +60,6 @@ CCDCylinder::_init()
 void 
 CCDCylinder::initialize(Vector3 position, Quat rotation, float radius, float height)
 {
-    ccdCylinder.radius = radius;
-    ccdCylinder.height = height;
     ccdCylinder.pos.v[0] = position.x;
     ccdCylinder.pos.v[1] = position.y;
     ccdCylinder.pos.v[2] = position.z;
@@ -67,6 +67,8 @@ CCDCylinder::initialize(Vector3 position, Quat rotation, float radius, float hei
     ccdCylinder.quat.q[1] = rotation.y;
     ccdCylinder.quat.q[2] = rotation.z;
     ccdCylinder.quat.q[3] = rotation.w;
+    ccdCylinder.radius = radius;
+    ccdCylinder.height = height;
 }
 
 bool 
@@ -96,7 +98,7 @@ CCDCylinder::collidesWithGJK(Variant other)
 }
 
 bool 
-CCDCylinder::collidesWithGJKPenetration(Variant other, Dictionary* outParam)
+CCDCylinder::collidesWithGJKAndInfo(Variant other, Dictionary outParam)
 {
     return true;
 }
@@ -125,6 +127,12 @@ CCDCylinder::collidesWithMPR(Variant other)
     }
 
     return intersect;
+}
+
+bool 
+CCDCylinder::collidesWithMPRAndInfo(Variant other, Dictionary outParam)
+{
+    return true;
 }
 
 Vector3 

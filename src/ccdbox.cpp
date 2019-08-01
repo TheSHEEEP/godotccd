@@ -34,8 +34,10 @@ void CCDBox::_register_methods()
     register_method("initialize", &CCDBox::initialize);
     register_method("collidesWithGJK", &CCDBox::collidesWithGJK);
     register_method("collidesWithMPR", &CCDBox::collidesWithMPR);
+    register_method("collidesWithGJKAndInfo", &CCDBox::collidesWithGJKAndInfo);
+    register_method("collidesWithMPRAndInfo", &CCDBox::collidesWithMPRAndInfo);
     register_method("getPosition", &CCDBox::getPosition);
-    register_method("getClassName", &CCDBox::getClassName);
+    register_method("getCCDType", &CCDBox::getCCDType);
 }
 
 
@@ -63,15 +65,13 @@ CCDBox::initialize(Vector3 position, Quat rotation, Vector3 dimensions)
     ccdBox.pos.v[0] = position.x;
     ccdBox.pos.v[1] = position.y;
     ccdBox.pos.v[2] = position.z;
-    ccdBox.x = dimensions.x;
-    ccdBox.y = dimensions.y;
-    ccdBox.z = dimensions.z;
     ccdBox.quat.q[0] = rotation.x;
     ccdBox.quat.q[1] = rotation.y;
     ccdBox.quat.q[2] = rotation.z;
     ccdBox.quat.q[3] = rotation.w;
-    
-//     Godot::print("Initialized CCDBox");
+    ccdBox.x = dimensions.x;
+    ccdBox.y = dimensions.y;
+    ccdBox.z = dimensions.z;
 }
 
 bool 
@@ -101,7 +101,7 @@ CCDBox::collidesWithGJK(Variant other)
 }
 
 bool 
-CCDBox::collidesWithGJKPenetration(Variant other, Dictionary* outParam)
+CCDBox::collidesWithGJKAndInfo(Variant other, Dictionary outParam)
 {
     return true;
 }
@@ -130,6 +130,12 @@ CCDBox::collidesWithMPR(Variant other)
     }
 
     return intersect;
+}
+
+bool 
+CCDBox::collidesWithMPRAndInfo(Variant other, Dictionary outParam)
+{
+    return true;
 }
 
 Vector3 

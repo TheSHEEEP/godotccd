@@ -34,8 +34,10 @@ void CCDSphere::_register_methods()
     register_method("initialize", &CCDSphere::initialize);
     register_method("collidesWithGJK", &CCDSphere::collidesWithGJK);
     register_method("collidesWithMPR", &CCDSphere::collidesWithMPR);
+    register_method("collidesWithGJKAndInfo", &CCDSphere::collidesWithGJKAndInfo);
+    register_method("collidesWithMPRAndInfo", &CCDSphere::collidesWithMPRAndInfo);
     register_method("getPosition", &CCDSphere::getPosition);
-    register_method("getClassName", &CCDSphere::getClassName);
+    register_method("getCCDType", &CCDSphere::getCCDType);
 }
 
 CCDSphere::CCDSphere() 
@@ -58,7 +60,6 @@ CCDSphere::_init()
 void 
 CCDSphere::initialize(Vector3 position, Quat rotation, float radius)
 {
-    ccdSphere.radius = radius;
     ccdSphere.pos.v[0] = position.x;
     ccdSphere.pos.v[1] = position.y;
     ccdSphere.pos.v[2] = position.z;
@@ -66,7 +67,7 @@ CCDSphere::initialize(Vector3 position, Quat rotation, float radius)
     ccdSphere.quat.q[1] = rotation.y;
     ccdSphere.quat.q[2] = rotation.z;
     ccdSphere.quat.q[3] = rotation.w;
-    testRadius = radius;
+    ccdSphere.radius = radius;
 }
 
 bool 
@@ -96,7 +97,7 @@ CCDSphere::collidesWithGJK(Variant other)
 }
 
 bool 
-CCDSphere::collidesWithGJKPenetration(Variant other, Dictionary* outParam)
+CCDSphere::collidesWithGJKAndInfo(Variant other, Dictionary outParam)
 {
     return true;
 }
@@ -125,6 +126,12 @@ CCDSphere::collidesWithMPR(Variant other)
     }
 
     return intersect;
+}
+
+bool 
+CCDSphere::collidesWithMPRAndInfo(Variant other, Dictionary outParam)
+{
+    return true;
 }
 
 Vector3 

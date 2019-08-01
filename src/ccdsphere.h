@@ -54,32 +54,37 @@ namespace godot
         /**
          * @brief Returns true if this object collides with the passed one.
          */
-        bool collidesWithGJK(Variant other);
+        virtual bool collidesWithGJK(Variant other);
         
         /**
          * @brief   Returns true if this object collides with the passed one.
          *          Will also fill the outParam with details about the collision.
          */
-        bool collidesWithGJKPenetration(Variant other, Dictionary* outParam);
+        virtual bool collidesWithGJKAndInfo(Variant other, Dictionary outParam);
         
         /**
          * @brief Returns true if this object collides with the passed one.
          */
-        bool collidesWithMPR(Variant other);
+        virtual bool collidesWithMPR(Variant other);
+        
+        /**
+         * @brief   Returns true if this object collides with the passed one.
+         *          Will also fill the outParam with details about the collision.
+         */
+        virtual bool collidesWithMPRAndInfo(Variant other, Dictionary outParam);
         
         /**
          * @brief Returns the position.
          */
-        Vector3 getPosition();
+        virtual Vector3 getPosition();
         
         /**
-         * @brief For easier identification from GDScript.
+         * @brief Returns the type.
          */
-        String getClassName() { return "CCDSphere"; }
+        virtual int getCCDType() { return CCDTYPE_SPHERE; }
         
     public:
         ccd_sphere_t ccdSphere;
-        float testRadius;
     };
 }
 

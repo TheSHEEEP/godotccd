@@ -35,6 +35,15 @@
 namespace godot
 {
     
+    enum CCDType
+    {
+        CCDTYPE_INVALID = -1,
+        CCDTYPE_BOX,
+        CCDTYPE_SPHERE,
+        CCDTYPE_CYLINDER,
+        NUM_CCD_TYPES
+    };
+    
     /**
     * @todo write docs
     */
@@ -56,6 +65,38 @@ namespace godot
         virtual ~CCDBase();
 
         void _init(); // our initializer called by Godot
+        
+        /**
+         * @brief Returns true if this object collides with the passed one.
+         */
+        virtual bool collidesWithGJK(Variant other) = 0;
+        
+        /**
+         * @brief   Returns true if this object collides with the passed one.
+         *          Will also fill the outParam with details about the collision.
+         */
+        virtual bool collidesWithGJKAndInfo(Variant other, Dictionary outParam) = 0;
+        
+        /**
+         * @brief Returns true if this object collides with the passed one.
+         */
+        virtual bool collidesWithMPR(Variant other) = 0;
+        
+        /**
+         * @brief   Returns true if this object collides with the passed one.
+         *          Will also fill the outParam with details about the collision.
+         */
+        virtual bool collidesWithMPRAndInfo(Variant other, Dictionary outParam) = 0;
+        
+        /**
+         * @brief Returns the position.
+         */
+        virtual Vector3 getPosition() = 0;
+        
+        /**
+         * @brief Returns the type.
+         */
+        virtual int getCCDType() { return CCDTYPE_INVALID; }
         
     protected:
         static ccd_t ccd;
