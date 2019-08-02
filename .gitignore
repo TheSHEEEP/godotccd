@@ -38,3 +38,5 @@ demo/\.import/
 \.sconsign\.dblite
 
 demo/\.tmp
+
+*.os

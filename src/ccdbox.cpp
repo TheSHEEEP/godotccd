@@ -63,15 +63,15 @@ void
 CCDBox::initialize(Vector3 position, Quat rotation, Vector3 dimensions)
 {
     ccdBox.pos.v[0] = position.x;
-    ccdBox.pos.v[1] = position.y;
-    ccdBox.pos.v[2] = position.z;
+    ccdBox.pos.v[1] = position.z;
+    ccdBox.pos.v[2] = position.y;
     ccdBox.quat.q[0] = rotation.x;
-    ccdBox.quat.q[1] = rotation.y;
-    ccdBox.quat.q[2] = rotation.z;
+    ccdBox.quat.q[1] = rotation.z;
+    ccdBox.quat.q[2] = rotation.y;
     ccdBox.quat.q[3] = rotation.w;
     ccdBox.x = dimensions.x;
-    ccdBox.y = dimensions.y;
-    ccdBox.z = dimensions.z;
+    ccdBox.y = dimensions.z;
+    ccdBox.z = dimensions.y;
 }
 
 bool 
@@ -101,5 +101,5 @@ CCDBox::collidesWithMPRAndInfo(Variant other, Dictionary outParam)
 Vector3 
 CCDBox::getPosition()
 {
-    return Vector3(ccdBox.pos.v[0], ccdBox.pos.v[1], ccdBox.pos.v[2]);
+    return Vector3(ccdBox.pos.v[0], ccdBox.pos.v[2], ccdBox.pos.v[1]);
 }

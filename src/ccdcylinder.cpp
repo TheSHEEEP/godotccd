@@ -61,11 +61,11 @@ void
 CCDCylinder::initialize(Vector3 position, Quat rotation, float radius, float height)
 {
     ccdCylinder.pos.v[0] = position.x;
-    ccdCylinder.pos.v[1] = position.y;
-    ccdCylinder.pos.v[2] = position.z;
+    ccdCylinder.pos.v[1] = position.z;
+    ccdCylinder.pos.v[2] = position.y;
     ccdCylinder.quat.q[0] = rotation.x;
-    ccdCylinder.quat.q[1] = rotation.y;
-    ccdCylinder.quat.q[2] = rotation.z;
+    ccdCylinder.quat.q[1] = rotation.z;
+    ccdCylinder.quat.q[2] = rotation.y;
     ccdCylinder.quat.q[3] = rotation.w;
     ccdCylinder.radius = radius;
     ccdCylinder.height = height;
@@ -98,5 +98,5 @@ CCDCylinder::collidesWithMPRAndInfo(Variant other, Dictionary outParam)
 Vector3 
 CCDCylinder::getPosition()
 {
-    return Vector3(ccdCylinder.pos.v[0], ccdCylinder.pos.v[1], ccdCylinder.pos.v[2]);
+    return Vector3(ccdCylinder.pos.v[0], ccdCylinder.pos.v[2], ccdCylinder.pos.v[1]);
 }

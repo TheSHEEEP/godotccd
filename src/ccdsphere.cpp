@@ -61,11 +61,11 @@ void
 CCDSphere::initialize(Vector3 position, Quat rotation, float radius)
 {
     ccdSphere.pos.v[0] = position.x;
-    ccdSphere.pos.v[1] = position.y;
-    ccdSphere.pos.v[2] = position.z;
+    ccdSphere.pos.v[1] = position.z;
+    ccdSphere.pos.v[2] = position.y;
     ccdSphere.quat.q[0] = rotation.x;
-    ccdSphere.quat.q[1] = rotation.y;
-    ccdSphere.quat.q[2] = rotation.z;
+    ccdSphere.quat.q[1] = rotation.z;
+    ccdSphere.quat.q[2] = rotation.y;
     ccdSphere.quat.q[3] = rotation.w;
     ccdSphere.radius = radius;
 }
@@ -97,7 +97,7 @@ CCDSphere::collidesWithMPRAndInfo(Variant other, Dictionary outParam)
 Vector3 
 CCDSphere::getPosition()
 {
-    return Vector3(ccdSphere.pos.v[0], ccdSphere.pos.v[1], ccdSphere.pos.v[2]);
+    return Vector3(ccdSphere.pos.v[0], ccdSphere.pos.v[2], ccdSphere.pos.v[1]);
 }
 
 
