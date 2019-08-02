@@ -117,8 +117,8 @@ There is a demo! And it showcases the extreme speed difference between doing col
 
 Simply open the project under /demo. But don't forget to compile the module first.
 
-It also shows that the fastest Godot variant is actually Godot's area after all shapes have been added and "registered" by its physics world. Of course, that is only fast as long as nothing moves or is removed/added, etc. so no further waiting for physics frames is required to check collisions. Which isn't realistic in all cases - hence the need for this module.  
-And even this fastest case is still slower than using godotccd for the same check.
+It also shows that the fastest Godot variant is actually Godot's area after all shapes have been added and "registered" by its physics world. Of course, that is only fast as long as nothing moves or is removed/added, etc. so no further waiting for physics frames is required to check collisions.  
+Which isn't realistic in all cases - hence the need for this module. 
 
 ### Hints
 

@@ -2,8 +2,8 @@ extends Spatial
 const CCDSphere 	:NativeScript = preload("res://addons/godotccd/ccdSphere.gdns")
 const CCDBox 		:NativeScript = preload("res://addons/godotccd/ccdBox.gdns")
 const CCDCylinder 	:NativeScript = preload("res://addons/godotccd/ccdCylinder.gdns")
-const objectRange 	:float = 200.0
-const numTests		:int = 10000
+const objectRange 	:float = 75.0
+const numTests		:int = 300
 
 var isDoingTest 	:bool = false
 var testIndex 		:int = -1
@@ -12,7 +12,10 @@ var objectContainer :Array = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass
+	var text :String = $lblDescription.text
+	text = text.replace("_X_", str(numTests))
+	text = text.replace("_X-1_", str(numTests - 1))
+	$lblDescription.text = text
 
 # Called when the user presses a key
 func _input(event :InputEvent) -> void:

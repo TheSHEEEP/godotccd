@@ -51,6 +51,7 @@ bbcode_text = "[center]Press Space to begin the next test...[/center]"
 text = "Press Space to begin the next test..."
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
+editor/display_folded = true
 margin_right = 1440.0
 margin_bottom = 278.0
 grow_horizontal = 0
@@ -600,7 +601,7 @@ size_flags_vertical = 3
 custom_fonts/normal_font = ExtResource( 3 )
 bbcode_enabled = true
 
-[node name="RichTextLabel" type="RichTextLabel" parent="."]
+[node name="lblDescription" type="RichTextLabel" parent="."]
 margin_left = 170.0
 margin_top = 380.0
 margin_right = 1280.0
@@ -609,11 +610,11 @@ custom_fonts/normal_font = ExtResource( 3 )
 text = "Test results are: milliseconds (number of collisions)
 
 The \"goal\" of the test is to check if a new shape to be added collides with previously added shapes.
-Each test is done by adding 300 shapes.
+Each test is done by adding _X_ shapes.
 Before each shape is added at a random position, it is tested for collision with each already existing shape. And then added anyway (to make the test a bit faster).
-Therefore, the first added shape requires 0 collision checks, and the last one up to 299.
+Therefore, the first added shape requires 0 collision checks, and the last one up to _X-1_.
 
 Area specialties:
-The Area results are actually still \"too fast\" due to the physics_fps being set to an unreasonably high number (180fps, so that this test row would complete faster).
+The Area results are actually still \"too fast\" due to the physics_fps being set to an unreasonably high number (300fps, so that this test row would complete faster).
 The second row of Area is a test in which all shapes have been pre-added to make sure all collisions can be tested at once. That isn't a realistic test (usually, things move around and get added/removed), but it shows that the slowness of Godot's collision checking definitely comes from having to wait for physics frames.
 "
