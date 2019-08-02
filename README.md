@@ -104,6 +104,7 @@ Please note that this will take a bit longer to calculate than doing "just" a co
 Finally, there are a few functions to get info at runtime from the godotccd shapes:
 ```GDScript
 var position :Vector3 = someCCDShape.getPosition()
+var rotation :Quat = someCCDShape.getRotation()
 
 # Types are: 0 = CCDBox, 1 = CCDSphere, 2 = CCDCylinder
 var type :int = someCCDShape.getCCDType()
@@ -121,24 +122,19 @@ And even this fastest case is still slower than using godotccd for the same chec
 
 ### Hints
 
-**Cylinders:**  
-Note that ccd's cylinders have their pivot at their bottom, instead of their middle like Godot's cylinders.
-
 **Prepare Your Shapes:**  
 Since there is a rather large cost in creating new native objects from GDScript (as well as a certain overhead in calling native functions), it is wise to have the boxes, spheres and cylinders you need created beforehand. Even initialized, if possible.  
 Not strictly necessary, mind you, as it is still very fast doing ad-hoc as the demo shows. But if you're using this module, you probably need to squeeze as much performance as possible.
 
 **GJK vs MPR:**  
-Supposedly, MPR is faster, but a bit less accurate. In my tests, I couldn't really see any difference in performance (and I did my demo test with up to 10000 comparisons...). And neither could I find any difference in accuracy. Maybe those differences would show up with much larger/smaller objects or under other circumstance that I did not encounter.  
-But as it is, I have a no real recommendation here.
+Supposedly, MPR is faster, but a bit less accurate. In my tests, I could see the performance difference, but only from 1000+ objects being checked against each other at the same time. If you "only" need to perform a few hundred checks, you're unlikely to notice a difference.  
+When it comes to differences in accuracy, even with enormous amount of checks, I did not see a difference large than 0.1% between both methods. Maybe there would be a larger difference with extremely small or large objects.
+As it is, I would probably recommend MPR, as it is about 10-20% faster at least for very large amounts of collision checks.
 
 **The collision results are not 100% equal to Godot's!**  
-That is true. If you need a module that returns 100% the same results as Godot, this module is not for you.
+That is true. If you need a module that returns 100% the same results as Godot's Area in all cases and "just" 99.X% is not enough, then this module is not for you.
 
-Most likely due to differences in how collision math is done internally between Godot and libccd, you will find a few collisions checks (usually in very close call cases) to not return the same result in Godot and godotccd. Í've never found this to affect more than 1-3% of cases, but it does happen.  
+This is most likely due to differences in how collision math is done internally between Godot and libccd, you will find a few collisions checks (only in **very** close call cases) to not return the same result in Godot and godotccd.  
+I've never found this to affect more than 1% of cases, but it does happen.  
 
-My findings on this phenomenon are, that if it happens...
-1. Spheres are entirely unaffected (most likely due to the rotation being irrelevant).
-2. Boxes can only be affected if they are rotated.
-3. Cylinders can always be affected.
-4. The more "wild" the rotations, the more likely that anything is affected.
+Please note that this becomes irrelevant if you perform continuous checks on moving objects. In that case, both godotccd and Godot's Area will find the collision(s) reliably, it might merely be a frame or two later than the other method.

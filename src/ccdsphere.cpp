@@ -37,6 +37,7 @@ void CCDSphere::_register_methods()
     register_method("collidesWithGJKAndInfo", &CCDSphere::collidesWithGJKAndInfo);
     register_method("collidesWithMPRAndInfo", &CCDSphere::collidesWithMPRAndInfo);
     register_method("getPosition", &CCDSphere::getPosition);
+    register_method("getRotation", &CCDSphere::getRotation);
     register_method("getCCDType", &CCDSphere::getCCDType);
 }
 
@@ -65,7 +66,7 @@ CCDSphere::initialize(Vector3 position, Quat rotation, float radius)
     ccdSphere.pos.v[2] = position.y;
     ccdSphere.quat.q[0] = rotation.x;
     ccdSphere.quat.q[1] = rotation.z;
-    ccdSphere.quat.q[2] = rotation.y;
+    ccdSphere.quat.q[2] = -rotation.y;
     ccdSphere.quat.q[3] = rotation.w;
     ccdSphere.radius = radius;
 }
@@ -99,5 +100,12 @@ CCDSphere::getPosition()
 {
     return Vector3(ccdSphere.pos.v[0], ccdSphere.pos.v[2], ccdSphere.pos.v[1]);
 }
+
+Quat 
+CCDSphere::getRotation()
+{
+    return Quat(ccdSphere.quat.q[0], -ccdSphere.quat.q[2], ccdSphere.quat.q[1], ccdSphere.quat.q[3]);
+}
+
 
 

@@ -37,6 +37,7 @@ void CCDBox::_register_methods()
     register_method("collidesWithGJKAndInfo", &CCDBox::collidesWithGJKAndInfo);
     register_method("collidesWithMPRAndInfo", &CCDBox::collidesWithMPRAndInfo);
     register_method("getPosition", &CCDBox::getPosition);
+    register_method("getRotation", &CCDBox::getRotation);
     register_method("getCCDType", &CCDBox::getCCDType);
 }
 
@@ -67,7 +68,7 @@ CCDBox::initialize(Vector3 position, Quat rotation, Vector3 dimensions)
     ccdBox.pos.v[2] = position.y;
     ccdBox.quat.q[0] = rotation.x;
     ccdBox.quat.q[1] = rotation.z;
-    ccdBox.quat.q[2] = rotation.y;
+    ccdBox.quat.q[2] = -rotation.y;
     ccdBox.quat.q[3] = rotation.w;
     ccdBox.x = dimensions.x;
     ccdBox.y = dimensions.z;
@@ -102,4 +103,10 @@ Vector3
 CCDBox::getPosition()
 {
     return Vector3(ccdBox.pos.v[0], ccdBox.pos.v[2], ccdBox.pos.v[1]);
+}
+
+Quat 
+CCDBox::getRotation()
+{
+    return Quat(ccdBox.quat.q[0], -ccdBox.quat.q[2], ccdBox.quat.q[1], ccdBox.quat.q[3]);
 }

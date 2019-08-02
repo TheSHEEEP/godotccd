@@ -30,6 +30,7 @@
 #include <Dictionary.hpp>
 #include <Variant.hpp>
 #include <Defs.hpp>
+#include <Quat.hpp>
 #include "ccd/ccd.h"
 #include "testsuites/support.h"
 
@@ -93,6 +94,11 @@ namespace godot
          * @brief Returns the position.
          */
         virtual Vector3 getPosition() { return Vector3(0.0f, 0.0f, 0.0f); }
+        
+        /**
+         * @brief Returns the rotation.
+         */
+        virtual Quat getRotation() { return Quat(0.0f, 0.0f, 0.0f, 1.0f); }
         
         /**
          * @brief Returns the ccd struct used by this class.

@@ -23,6 +23,18 @@ shape = SubResource( 1 )
 [node name="CollisionShape" type="CollisionShape" parent="BoxArea"]
 shape = SubResource( 2 )
 
+[node name="BoxArea2" type="Area" parent="."]
+transform = Transform( 0.423662, 0.90582, 0, -0.873733, 0.408654, -0.263806, -0.238961, 0.111764, 0.964576, 65.88, 0, 58.707 )
+
+[node name="CollisionShape" type="CollisionShape" parent="BoxArea2"]
+shape = SubResource( 2 )
+
+[node name="BoxArea3" type="Area" parent="."]
+transform = Transform( 0.779382, -0.626549, -8.38968e-08, -0.60128, -0.747948, -0.281136, 0.176145, 0.219112, -0.959668, 66.871, 0, 56.254 )
+
+[node name="CollisionShape" type="CollisionShape" parent="BoxArea3"]
+shape = SubResource( 2 )
+
 [node name="CylinderArea" type="Area" parent="."]
 
 [node name="CollisionShape" type="CollisionShape" parent="CylinderArea"]

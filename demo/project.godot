@@ -30,7 +30,7 @@ limits/message_queue/max_size_kb=100024
 
 [physics]
 
-common/physics_fps=180
+common/physics_fps=300
 
 [rendering]
 

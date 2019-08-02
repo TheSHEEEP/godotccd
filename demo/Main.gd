@@ -2,7 +2,8 @@ extends Spatial
 const CCDSphere 	:NativeScript = preload("res://addons/godotccd/ccdSphere.gdns")
 const CCDBox 		:NativeScript = preload("res://addons/godotccd/ccdBox.gdns")
 const CCDCylinder 	:NativeScript = preload("res://addons/godotccd/ccdCylinder.gdns")
-const objectRange 	:float = 65.0
+const objectRange 	:float = 200.0
+const numTests		:int = 10000
 
 var isDoingTest 	:bool = false
 var testIndex 		:int = -1
@@ -30,19 +31,19 @@ func _input(event :InputEvent) -> void:
 func doNextTest(testIndex :int) -> void:
 	if testIndex == 0:
 		$lblAdvance.bbcode_text = "[center]Doing area test... patience, please[/center]"
-		yield(doAreaTest(300), "completed")
+		yield(doAreaTest(numTests), "completed")
 		$lblAdvance.bbcode_text = "[center]Area test done. Press space to run the next test...[/center]"
 	if testIndex == 1:
 		$lblAdvance.bbcode_text = "[center]Doing godotccd GJK test...[/center]"
-		yield(doCCDGJKTest(300), "completed")
+		yield(doCCDGJKTest(numTests), "completed")
 		$lblAdvance.bbcode_text = "[center]godotccd GJK test done. Press space to run the next test...[/center]"
 	if testIndex == 2:
 		$lblAdvance.bbcode_text = "[center]Doing godotccd MPR test...[/center]"
-		yield(doCCDMPRTest(300), "completed")
+		yield(doCCDMPRTest(numTests), "completed")
 		$lblAdvance.bbcode_text = "[center]godotccd MPR test done. Press space to run the next test...[/center]"
 	if testIndex == 3:
 		$lblAdvance.bbcode_text = "[center]Doing GJK & MPR with info test...[/center]"
-		yield(doInfoTest(300), "completed")
+		yield(doInfoTest(numTests), "completed")
 		$lblAdvance.bbcode_text = "[center]All tests done. Hooray! (>^.^)>[/center]"
 
 # Do the area test
@@ -444,7 +445,7 @@ func _internalAreaTest(originalArea :Area, originalArea2 :Area, numObjects :int,
 	# Add the first area
 	var area :Area = originalArea.duplicate()
 	area.translation = Vector3(rng.randf_range(0.0, objectRange), 0.0, rng.randf_range(0.0, objectRange))
-	area.rotation_degrees = Vector3(rng.randf_range(0.0, 180.0), 0.0, rng.randf_range(0.0, 180.0))
+	area.rotation = Vector3(deg2rad(rng.randf_range(0.0, 180.0)), 0.0, deg2rad(rng.randf_range(0.0, 180.0)))
 	add_child(area)
 	objectContainer.push_back(area)
 	
@@ -456,7 +457,7 @@ func _internalAreaTest(originalArea :Area, originalArea2 :Area, numObjects :int,
 		else:
 			area = originalArea.duplicate()
 		area.translation = Vector3(rng.randf_range(0.0, objectRange), 0.0, rng.randf_range(0.0, objectRange))
-		area.rotation_degrees = Vector3(rng.randf_range(0.0, 180.0), 0.0, rng.randf_range(0.0, 180.0))
+		area.rotation = Vector3(deg2rad(rng.randf_range(0.0, 180.0)), 0.0, deg2rad(rng.randf_range(0.0, 180.0)))
 		add_child(area)
 		
 		if preAdd == false:
@@ -506,7 +507,7 @@ func _internalGJKTest(originalType :NativeScript, originalType2 :NativeScript, n
 	# Add the first shape (just use identity as rotation as we don't rotate in this test)
 	var position :Vector3 = Vector3(rng.randf_range(0.0, objectRange), 0.0, rng.randf_range(0.0, objectRange))
 	var rotation :Quat = Quat.IDENTITY
-	rotation.set_euler(Vector3(rng.randf_range(0.0, 180.0), 0.0, rng.randf_range(0.0, 180.0)))
+	rotation.set_euler(Vector3(deg2rad(rng.randf_range(0.0, 180.0)), 0.0, deg2rad(rng.randf_range(0.0, 180.0))))
 	var dimensions :Vector3 = Vector3(1.0, 1.0, 1.0)
 	var shape = originalType.new();
 	if originalType == CCDBox:
@@ -514,7 +515,7 @@ func _internalGJKTest(originalType :NativeScript, originalType2 :NativeScript, n
 	elif originalType == CCDSphere:
 		shape.initialize(position, rotation, dimensions.x)
 	else:
-		shape.initialize(Vector3(position.x, position.y - dimensions.y, position.z), rotation, dimensions.x, dimensions.y * 2)
+		shape.initialize(position, rotation, dimensions.x, dimensions.y * 2)
 	objectContainer.push_back(shape)
 	
 	# Add the rest of the shapes and check for collision with the rest
@@ -530,17 +531,17 @@ func _internalGJKTest(originalType :NativeScript, originalType2 :NativeScript, n
 		
 		# Initialize shape
 		position = Vector3(rng.randf_range(0.0, objectRange), 0.0, rng.randf_range(0.0, objectRange))
-		rotation.set_euler(Vector3(rng.randf_range(0.0, 180.0), 0.0, rng.randf_range(0.0, 180.0)))
+		rotation.set_euler(Vector3(deg2rad(rng.randf_range(0.0, 180.0)), 0.0, deg2rad(rng.randf_range(0.0, 180.0))))
 		if chosenType == CCDBox:
 			shape.initialize(position, rotation, dimensions * 2)
 		elif chosenType == CCDSphere:
 			shape.initialize(position, rotation, dimensions.x)
 		else:
-			shape.initialize(Vector3(position.x, position.y - dimensions.y, position.z), rotation, dimensions.x, dimensions.y * 2)
+			shape.initialize(position, rotation, dimensions.x, dimensions.y * 2)
 		
 		# Check collision with the existing shapes until a collision happens
 		for other in objectContainer:
-			var collides :bool
+			var collides :bool = false
 			if withInfo == false:
 				collides = shape.collidesWithGJK(other)
 			else:
@@ -561,7 +562,7 @@ func _internalMPRTest(originalType :NativeScript, originalType2 :NativeScript, n
 	# Add the first shape (just use identity matrix as rotation as we don't rotate in this test)
 	var position :Vector3 = Vector3(rng.randf_range(0.0, objectRange), 0.0, rng.randf_range(0.0, objectRange))
 	var rotation :Quat = Quat.IDENTITY
-	rotation.set_euler(Vector3(rng.randf_range(0.0, 180.0), 0.0, rng.randf_range(0.0, 180.0)))
+	rotation.set_euler(Vector3(deg2rad(rng.randf_range(0.0, 180.0)), 0.0, deg2rad(rng.randf_range(0.0, 180.0))))
 	var dimensions :Vector3 = Vector3(1.0, 1.0, 1.0)
 	var shape = originalType.new();
 	if originalType == CCDBox:
@@ -569,7 +570,7 @@ func _internalMPRTest(originalType :NativeScript, originalType2 :NativeScript, n
 	elif originalType == CCDSphere:
 		shape.initialize(position, rotation, dimensions.x)
 	else:
-		shape.initialize(Vector3(position.x, position.y - dimensions.y, position.z), rotation, dimensions.x, dimensions.y * 2)
+		shape.initialize(position, rotation, dimensions.x, dimensions.y * 2)
 	objectContainer.push_back(shape)
 	
 	# Add the rest of the shapes and check for collision with the rest
@@ -585,13 +586,13 @@ func _internalMPRTest(originalType :NativeScript, originalType2 :NativeScript, n
 		
 		# Initialize shape
 		position = Vector3(rng.randf_range(0.0, objectRange), 0.0, rng.randf_range(0.0, objectRange))
-		rotation.set_euler(Vector3(rng.randf_range(0.0, 180.0), 0.0, rng.randf_range(0.0, 180.0)))
+		rotation.set_euler(Vector3(deg2rad(rng.randf_range(0.0, 180.0)), 0.0, deg2rad(rng.randf_range(0.0, 180.0))))
 		if chosenType == CCDBox:
 			shape.initialize(position, rotation, dimensions * 2)
 		elif chosenType == CCDSphere:
 			shape.initialize(position, rotation, dimensions.x)
 		else:
-			shape.initialize(Vector3(position.x, position.y - dimensions.y, position.z), rotation, dimensions.x, dimensions.y * 2)
+			shape.initialize(position, rotation, dimensions.x, dimensions.y * 2)
 		
 		# Check collision with the existing shapes until a collision happens
 		for other in objectContainer:

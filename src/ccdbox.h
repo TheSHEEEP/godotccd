@@ -85,6 +85,11 @@ namespace godot
         virtual Vector3 getPosition();
         
         /**
+         * @brief Returns the rotation.
+         */
+        virtual Quat getRotation();
+        
+        /**
          * @brief Returns the ccd struct used by this class.
          */
         virtual void* getCCDStruct() { return (void*)&ccdBox; }

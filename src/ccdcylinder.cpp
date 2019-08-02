@@ -37,6 +37,7 @@ void CCDCylinder::_register_methods()
     register_method("collidesWithGJKAndInfo", &CCDCylinder::collidesWithGJKAndInfo);
     register_method("collidesWithMPRAndInfo", &CCDCylinder::collidesWithMPRAndInfo);
     register_method("getPosition", &CCDCylinder::getPosition);
+    register_method("getRotation", &CCDCylinder::getRotation);
     register_method("getCCDType", &CCDCylinder::getCCDType);
 }
 
@@ -65,7 +66,7 @@ CCDCylinder::initialize(Vector3 position, Quat rotation, float radius, float hei
     ccdCylinder.pos.v[2] = position.y;
     ccdCylinder.quat.q[0] = rotation.x;
     ccdCylinder.quat.q[1] = rotation.z;
-    ccdCylinder.quat.q[2] = rotation.y;
+    ccdCylinder.quat.q[2] = -rotation.y;
     ccdCylinder.quat.q[3] = rotation.w;
     ccdCylinder.radius = radius;
     ccdCylinder.height = height;
@@ -99,4 +100,10 @@ Vector3
 CCDCylinder::getPosition()
 {
     return Vector3(ccdCylinder.pos.v[0], ccdCylinder.pos.v[2], ccdCylinder.pos.v[1]);
+}
+
+Quat 
+CCDCylinder::getRotation()
+{
+    return Quat(ccdCylinder.quat.q[0], -ccdCylinder.quat.q[2], ccdCylinder.quat.q[1], ccdCylinder.quat.q[3]);
 }
