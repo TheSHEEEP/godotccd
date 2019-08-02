@@ -14,6 +14,7 @@ Godot's collision checking is perfectly fine for most "everyday" needs, but if y
 The reason why Godot's physics is not sufficient for all cases is that Godot requires multiple physics frames until collision checks between objects in its physics world can even work. After something is added or moved, some physics frames need to pass until you can check for collisions.  
 That just doesn't cut it if you need maximum performance for a few hundred collision checks **right now**.
 
+Basically, I just needed the math to do quick collision checking, but Godot doesn't offer "just the maths".  
 Hence I decided to implement [libccd](https://github.com/danfis/libccd), which is fast, lightweight and has a license fitting Godot's own.
 
 ### How to build
@@ -134,11 +135,10 @@ But as it is, I have a no real recommendation here.
 **The collision results are not 100% equal to Godot's!**  
 That is true. If you need a module that returns 100% the same results as Godot, this module is not for you.
 
-Most likely due to differences in how collision math is done internally between Godot and libccd, you will find a few collisions checks (usually in very close call cases) to not return the same result in Godot and godotccd. Í've never found this to affect more than 1-5% of cases, but it does happen.  
+Most likely due to differences in how collision math is done internally between Godot and libccd, you will find a few collisions checks (usually in very close call cases) to not return the same result in Godot and godotccd. Í've never found this to affect more than 1-3% of cases, but it does happen.  
 
 My findings on this phenomenon are, that if it happens...
 1. Spheres are entirely unaffected (most likely due to the rotation being irrelevant).
-2. Boxes are only affected if they are rotated.
-3. Cylinders are always affected.
-4. For boxes, libccd is more likely to report a collision where Godot doesn't. For cylinders, the opposite is true.
-5. The more "wild" the rotations, the more likely that anything is affected.
+2. Boxes can only be affected if they are rotated.
+3. Cylinders can always be affected.
+4. The more "wild" the rotations, the more likely that anything is affected.
