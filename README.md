@@ -41,7 +41,7 @@ scons platforms=linux target=release -j 4
 The compiled gdnative module should now be under demo/godotccd/bin.
 
 ### How to integrate godotccd into your project
-Copy the `demo/addons/godotccd` folder to your own project, make sure to place it in an identical path, e.g. `<yourProject>/addons/godotccd`. Otherwise, the paths inside the various files won't work.  
+After building, copy the `demo/addons/godotccd` folder to your own project, make sure to place it in an identical path, e.g. `<yourProject>/addons/godotccd`. Otherwise, the paths inside the various files won't work.  
 Of course, you are free to place it anywhere, but then you'll have to adjust the paths yourself.
 
 Please also read [this guide](https://docs.godotengine.org/en/3.1/tutorials/plugins/gdnative/gdnative-cpp-example.html#using-the-gdnative-module) on how to use C++ GDNative modules.
@@ -128,13 +128,13 @@ Not strictly necessary, mind you, as it is still very fast doing ad-hoc as the d
 
 **GJK vs MPR:**  
 Supposedly, MPR is faster, but a bit less accurate. In my tests, I could see the performance difference, but only from 1000+ objects being checked against each other at the same time. If you "only" need to perform a few hundred checks, you're unlikely to notice a difference.  
-When it comes to differences in accuracy, even with enormous amount of checks, I did not see a difference large than 0.1% between both methods. Maybe there would be a larger difference with extremely small or large objects.
-As it is, I would probably recommend MPR, as it is about 10-20% faster at least for very large amounts of collision checks.
+When it comes to differences in accuracy, even with an enormous amount of checks, I did not see a difference larger than 0.1% between both methods. Maybe there would be a larger difference with extremely small or large objects.
+As it is, I would probably recommend MPR, since it is about 10-20% faster at least for very large amounts of collision checks.
 
 **The collision results are not 100% equal to Godot's!**  
 That is true. If you need a module that returns 100% the same results as Godot's Area in all cases and "just" 99.X% is not enough, then this module is not for you.
 
-This is most likely due to differences in how collision math is done internally between Godot and libccd, you will find a few collisions checks (only in **very** close call cases) to not return the same result in Godot and godotccd.  
+This is most likely due to differences in how collision math is done internally between Godot and libccd. You will find a few collisions checks (only in **very** close call cases) to not return the same result in Godot and godotccd.  
 I've never found this to affect more than 1% of cases, but it does happen.  
 
 Please note that this becomes irrelevant if you perform continuous checks on moving objects. In that case, both godotccd and Godot's Area will find the collision(s) reliably, it might merely be a frame or two later than the other method.
