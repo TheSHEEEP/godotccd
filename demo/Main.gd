@@ -484,12 +484,12 @@ func _internalAreaTest(originalArea :Area, originalArea2 :Area, numObjects :int,
 		yield(get_tree(), "physics_frame")
 		yield(get_tree(), "physics_frame")
 		
-		for area in objectContainer:
+		for area2 in objectContainer:
 			for otherArea in objectContainer:
-				if area == otherArea:
+				if area2 == otherArea:
 					continue
 				
-				var collides :bool = area.overlaps_area(otherArea)
+				var collides :bool = area2.overlaps_area(otherArea)
 				if collides:
 					numCollisions += 1
 					break
