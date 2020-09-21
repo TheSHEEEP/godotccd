@@ -94,7 +94,7 @@ margin_bottom = 32.0
 
 [node name="RichTextLabel3" type="RichTextLabel" parent="VBoxContainer/HBoxContainer"]
 margin_left = 414.0
-margin_right = 609.0
+margin_right = 610.0
 margin_bottom = 32.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -104,13 +104,13 @@ bbcode_text = "[center]Sphere <> Sphere[/center]"
 text = "Sphere <> Sphere"
 
 [node name="VSeparator3" type="VSeparator" parent="VBoxContainer/HBoxContainer"]
-margin_left = 613.0
-margin_right = 617.0
+margin_left = 614.0
+margin_right = 618.0
 margin_bottom = 32.0
 
 [node name="RichTextLabel4" type="RichTextLabel" parent="VBoxContainer/HBoxContainer"]
-margin_left = 621.0
-margin_right = 816.0
+margin_left = 622.0
+margin_right = 817.0
 margin_bottom = 32.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -120,13 +120,13 @@ bbcode_text = "[center]Cylinder <> Cylinder[/center]"
 text = "Cylinder <> Cylinder"
 
 [node name="VSeparator4" type="VSeparator" parent="VBoxContainer/HBoxContainer"]
-margin_left = 820.0
-margin_right = 824.0
+margin_left = 821.0
+margin_right = 825.0
 margin_bottom = 32.0
 
 [node name="RichTextLabel5" type="RichTextLabel" parent="VBoxContainer/HBoxContainer"]
-margin_left = 828.0
-margin_right = 1023.0
+margin_left = 829.0
+margin_right = 1025.0
 margin_bottom = 32.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -136,13 +136,13 @@ bbcode_text = "[center]Box <> Sphere[/center]"
 text = "Box <> Sphere"
 
 [node name="VSeparator5" type="VSeparator" parent="VBoxContainer/HBoxContainer"]
-margin_left = 1027.0
-margin_right = 1031.0
+margin_left = 1029.0
+margin_right = 1033.0
 margin_bottom = 32.0
 
 [node name="RichTextLabel6" type="RichTextLabel" parent="VBoxContainer/HBoxContainer"]
-margin_left = 1035.0
-margin_right = 1230.0
+margin_left = 1037.0
+margin_right = 1232.0
 margin_bottom = 32.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -152,12 +152,12 @@ bbcode_text = "[center]Box <> Cylinder[/center]"
 text = "Box <> Cylinder"
 
 [node name="VSeparator6" type="VSeparator" parent="VBoxContainer/HBoxContainer"]
-margin_left = 1234.0
-margin_right = 1238.0
+margin_left = 1236.0
+margin_right = 1240.0
 margin_bottom = 32.0
 
 [node name="RichTextLabel7" type="RichTextLabel" parent="VBoxContainer/HBoxContainer"]
-margin_left = 1242.0
+margin_left = 1244.0
 margin_right = 1440.0
 margin_bottom = 32.0
 size_flags_horizontal = 3
@@ -212,7 +212,7 @@ margin_bottom = 64.0
 
 [node name="lblAreaSS" type="RichTextLabel" parent="VBoxContainer/HBoxContainer2"]
 margin_left = 414.0
-margin_right = 609.0
+margin_right = 610.0
 margin_bottom = 64.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -220,13 +220,13 @@ custom_fonts/normal_font = ExtResource( 3 )
 bbcode_enabled = true
 
 [node name="VSeparator3" type="VSeparator" parent="VBoxContainer/HBoxContainer2"]
-margin_left = 613.0
-margin_right = 617.0
+margin_left = 614.0
+margin_right = 618.0
 margin_bottom = 64.0
 
 [node name="lblAreaCC" type="RichTextLabel" parent="VBoxContainer/HBoxContainer2"]
-margin_left = 621.0
-margin_right = 816.0
+margin_left = 622.0
+margin_right = 817.0
 margin_bottom = 64.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -234,13 +234,13 @@ custom_fonts/normal_font = ExtResource( 3 )
 bbcode_enabled = true
 
 [node name="VSeparator4" type="VSeparator" parent="VBoxContainer/HBoxContainer2"]
-margin_left = 820.0
-margin_right = 824.0
+margin_left = 821.0
+margin_right = 825.0
 margin_bottom = 64.0
 
 [node name="lblAreaBS" type="RichTextLabel" parent="VBoxContainer/HBoxContainer2"]
-margin_left = 828.0
-margin_right = 1023.0
+margin_left = 829.0
+margin_right = 1025.0
 margin_bottom = 64.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -248,13 +248,13 @@ custom_fonts/normal_font = ExtResource( 3 )
 bbcode_enabled = true
 
 [node name="VSeparator5" type="VSeparator" parent="VBoxContainer/HBoxContainer2"]
-margin_left = 1027.0
-margin_right = 1031.0
+margin_left = 1029.0
+margin_right = 1033.0
 margin_bottom = 64.0
 
 [node name="lblAreaBC" type="RichTextLabel" parent="VBoxContainer/HBoxContainer2"]
-margin_left = 1035.0
-margin_right = 1230.0
+margin_left = 1037.0
+margin_right = 1232.0
 margin_bottom = 64.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -262,12 +262,12 @@ custom_fonts/normal_font = ExtResource( 3 )
 bbcode_enabled = true
 
 [node name="VSeparator6" type="VSeparator" parent="VBoxContainer/HBoxContainer2"]
-margin_left = 1234.0
-margin_right = 1238.0
+margin_left = 1236.0
+margin_right = 1240.0
 margin_bottom = 64.0
 
 [node name="lblAreaSC" type="RichTextLabel" parent="VBoxContainer/HBoxContainer2"]
-margin_left = 1242.0
+margin_left = 1244.0
 margin_right = 1440.0
 margin_bottom = 64.0
 size_flags_horizontal = 3
@@ -318,7 +318,7 @@ margin_bottom = 32.0
 
 [node name="lblGJKSS" type="RichTextLabel" parent="VBoxContainer/HBoxContainer3"]
 margin_left = 414.0
-margin_right = 609.0
+margin_right = 610.0
 margin_bottom = 32.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -326,13 +326,13 @@ custom_fonts/normal_font = ExtResource( 3 )
 bbcode_enabled = true
 
 [node name="VSeparator3" type="VSeparator" parent="VBoxContainer/HBoxContainer3"]
-margin_left = 613.0
-margin_right = 617.0
+margin_left = 614.0
+margin_right = 618.0
 margin_bottom = 32.0
 
 [node name="lblGJKCC" type="RichTextLabel" parent="VBoxContainer/HBoxContainer3"]
-margin_left = 621.0
-margin_right = 816.0
+margin_left = 622.0
+margin_right = 817.0
 margin_bottom = 32.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -340,13 +340,13 @@ custom_fonts/normal_font = ExtResource( 3 )
 bbcode_enabled = true
 
 [node name="VSeparator4" type="VSeparator" parent="VBoxContainer/HBoxContainer3"]
-margin_left = 820.0
-margin_right = 824.0
+margin_left = 821.0
+margin_right = 825.0
 margin_bottom = 32.0
 
 [node name="lblGJKBS" type="RichTextLabel" parent="VBoxContainer/HBoxContainer3"]
-margin_left = 828.0
-margin_right = 1023.0
+margin_left = 829.0
+margin_right = 1025.0
 margin_bottom = 32.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -354,13 +354,13 @@ custom_fonts/normal_font = ExtResource( 3 )
 bbcode_enabled = true
 
 [node name="VSeparator5" type="VSeparator" parent="VBoxContainer/HBoxContainer3"]
-margin_left = 1027.0
-margin_right = 1031.0
+margin_left = 1029.0
+margin_right = 1033.0
 margin_bottom = 32.0
 
 [node name="lblGJKBC" type="RichTextLabel" parent="VBoxContainer/HBoxContainer3"]
-margin_left = 1035.0
-margin_right = 1230.0
+margin_left = 1037.0
+margin_right = 1232.0
 margin_bottom = 32.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -368,12 +368,12 @@ custom_fonts/normal_font = ExtResource( 3 )
 bbcode_enabled = true
 
 [node name="VSeparator6" type="VSeparator" parent="VBoxContainer/HBoxContainer3"]
-margin_left = 1234.0
-margin_right = 1238.0
+margin_left = 1236.0
+margin_right = 1240.0
 margin_bottom = 32.0
 
 [node name="lblGJKSC" type="RichTextLabel" parent="VBoxContainer/HBoxContainer3"]
-margin_left = 1242.0
+margin_left = 1244.0
 margin_right = 1440.0
 margin_bottom = 32.0
 size_flags_horizontal = 3
@@ -424,7 +424,7 @@ margin_bottom = 32.0
 
 [node name="lblMPRSS" type="RichTextLabel" parent="VBoxContainer/HBoxContainer4"]
 margin_left = 414.0
-margin_right = 609.0
+margin_right = 610.0
 margin_bottom = 32.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -432,13 +432,13 @@ custom_fonts/normal_font = ExtResource( 3 )
 bbcode_enabled = true
 
 [node name="VSeparator3" type="VSeparator" parent="VBoxContainer/HBoxContainer4"]
-margin_left = 613.0
-margin_right = 617.0
+margin_left = 614.0
+margin_right = 618.0
 margin_bottom = 32.0
 
 [node name="lblMPRCC" type="RichTextLabel" parent="VBoxContainer/HBoxContainer4"]
-margin_left = 621.0
-margin_right = 816.0
+margin_left = 622.0
+margin_right = 817.0
 margin_bottom = 32.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -446,13 +446,13 @@ custom_fonts/normal_font = ExtResource( 3 )
 bbcode_enabled = true
 
 [node name="VSeparator4" type="VSeparator" parent="VBoxContainer/HBoxContainer4"]
-margin_left = 820.0
-margin_right = 824.0
+margin_left = 821.0
+margin_right = 825.0
 margin_bottom = 32.0
 
 [node name="lblMPRBS" type="RichTextLabel" parent="VBoxContainer/HBoxContainer4"]
-margin_left = 828.0
-margin_right = 1023.0
+margin_left = 829.0
+margin_right = 1025.0
 margin_bottom = 32.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -460,13 +460,13 @@ custom_fonts/normal_font = ExtResource( 3 )
 bbcode_enabled = true
 
 [node name="VSeparator5" type="VSeparator" parent="VBoxContainer/HBoxContainer4"]
-margin_left = 1027.0
-margin_right = 1031.0
+margin_left = 1029.0
+margin_right = 1033.0
 margin_bottom = 32.0
 
 [node name="lblMPRBC" type="RichTextLabel" parent="VBoxContainer/HBoxContainer4"]
-margin_left = 1035.0
-margin_right = 1230.0
+margin_left = 1037.0
+margin_right = 1232.0
 margin_bottom = 32.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -474,12 +474,12 @@ custom_fonts/normal_font = ExtResource( 3 )
 bbcode_enabled = true
 
 [node name="VSeparator6" type="VSeparator" parent="VBoxContainer/HBoxContainer4"]
-margin_left = 1234.0
-margin_right = 1238.0
+margin_left = 1236.0
+margin_right = 1240.0
 margin_bottom = 32.0
 
 [node name="lblMPRSC" type="RichTextLabel" parent="VBoxContainer/HBoxContainer4"]
-margin_left = 1242.0
+margin_left = 1244.0
 margin_right = 1440.0
 margin_bottom = 32.0
 size_flags_horizontal = 3
@@ -533,7 +533,7 @@ margin_bottom = 70.0
 
 [node name="lblInfoSS" type="RichTextLabel" parent="VBoxContainer/HBoxContainer5"]
 margin_left = 414.0
-margin_right = 609.0
+margin_right = 610.0
 margin_bottom = 70.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -541,13 +541,13 @@ custom_fonts/normal_font = ExtResource( 3 )
 bbcode_enabled = true
 
 [node name="VSeparator3" type="VSeparator" parent="VBoxContainer/HBoxContainer5"]
-margin_left = 613.0
-margin_right = 617.0
+margin_left = 614.0
+margin_right = 618.0
 margin_bottom = 70.0
 
 [node name="lblInfoCC" type="RichTextLabel" parent="VBoxContainer/HBoxContainer5"]
-margin_left = 621.0
-margin_right = 816.0
+margin_left = 622.0
+margin_right = 817.0
 margin_bottom = 70.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -555,13 +555,13 @@ custom_fonts/normal_font = ExtResource( 3 )
 bbcode_enabled = true
 
 [node name="VSeparator4" type="VSeparator" parent="VBoxContainer/HBoxContainer5"]
-margin_left = 820.0
-margin_right = 824.0
+margin_left = 821.0
+margin_right = 825.0
 margin_bottom = 70.0
 
 [node name="lblInfoBS" type="RichTextLabel" parent="VBoxContainer/HBoxContainer5"]
-margin_left = 828.0
-margin_right = 1023.0
+margin_left = 829.0
+margin_right = 1025.0
 margin_bottom = 70.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -569,13 +569,13 @@ custom_fonts/normal_font = ExtResource( 3 )
 bbcode_enabled = true
 
 [node name="VSeparator5" type="VSeparator" parent="VBoxContainer/HBoxContainer5"]
-margin_left = 1027.0
-margin_right = 1031.0
+margin_left = 1029.0
+margin_right = 1033.0
 margin_bottom = 70.0
 
 [node name="lblInfoBC" type="RichTextLabel" parent="VBoxContainer/HBoxContainer5"]
-margin_left = 1035.0
-margin_right = 1230.0
+margin_left = 1037.0
+margin_right = 1232.0
 margin_bottom = 70.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -583,12 +583,12 @@ custom_fonts/normal_font = ExtResource( 3 )
 bbcode_enabled = true
 
 [node name="VSeparator6" type="VSeparator" parent="VBoxContainer/HBoxContainer5"]
-margin_left = 1234.0
-margin_right = 1238.0
+margin_left = 1236.0
+margin_right = 1240.0
 margin_bottom = 70.0
 
 [node name="lblInfoSC" type="RichTextLabel" parent="VBoxContainer/HBoxContainer5"]
-margin_left = 1242.0
+margin_left = 1244.0
 margin_right = 1440.0
 margin_bottom = 70.0
 size_flags_horizontal = 3
